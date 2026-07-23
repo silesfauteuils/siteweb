@@ -1,0 +1,78 @@
+---
+import type { ContentAnimation } from "./types"
+
+interface Props {
+  content: {
+    title: string
+    steps: { text: string; html?: boolean }[]
+    outro: string
+    button: {
+      text: string
+      href: string
+    }
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="process" class="py-24 bg-background">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2
+        class="font-heading text-3xl md:text-4xl text-foreground leading-tight"
+        data-animate="fadeInUp">
+        {content.title}
+      </h2>
+    </div>
+
+    <ol class="space-y-8 mb-20">
+      {
+        content.steps.map((step, i) => (
+          <li
+            key={i}
+            class="flex gap-6 items-start"
+            data-animate="fadeInUp"
+            style={`transition-delay: ${i * 0.1}s`}>
+            <span class="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-foreground text-white font-heading text-lg">
+              {i + 1}
+            </span>
+            <div class="pt-1.5">
+              {step.html ? (
+                <p
+                  class="text-foreground text-lg leading-relaxed"
+                  set:html={step.text}
+                />
+              ) : (
+                <p class="text-foreground text-lg leading-relaxed">
+                  {step.text}
+                </p>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="text-justify mb-12" data-animate="fadeInUp">
+      <p class="text-muted text-xs uppercase tracking-widest mb-4">
+        Délais & Livraison
+      </p>
+      <p
+        class="text-foreground text-lg leading-relaxed max-w-3xl mx-auto"
+        set:html={content.outro}
+      />
+    </div>
+
+    <div class="text-center">
+      <a
+        href={content.button.href}
+        class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors"
+        data-animate="fadeInUp"
+        style="transition-delay: 0.3s">
+        {content.button.text}
+      </a>
+    </div>
+  </div>
+</section>

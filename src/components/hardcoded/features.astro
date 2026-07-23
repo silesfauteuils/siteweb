@@ -1,0 +1,97 @@
+---
+import type { ContentAnimation, ContentImage } from "./types"
+
+interface ContentBlock {
+  subtitle: string
+  heading: string
+  image: ContentImage
+}
+
+interface Props {
+  content: {
+    blocks: ContentBlock[]
+    outlineHeading?: string
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section class="bg-background py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    {
+      content.blocks.map((block, i) => (
+        <div
+          key={i}
+          class={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24 ${i > 0 ? "lg:grid-flow-col-dense" : ""}`}>
+          <div class={`${i > 0 ? "lg:col-start-2" : ""}`}>
+            <div class="rounded-2xl overflow-hidden" data-animate="fadeInRight">
+              <img
+                src={block.image.src}
+                alt={block.image.alt}
+                class="w-full h-[600px] object-cover"
+              />
+            </div>
+          </div>
+          <div>
+            <span
+              class="text-accent uppercase tracking-widest text-sm mb-4 block"
+              data-animate="fadeInLeft">
+              {block.subtitle}
+            </span>
+            <h2
+              class="font-heading text-4xl md:text-5xl text-foreground leading-tight mb-6"
+              data-animate="fadeInLeft">
+              {block.heading}
+            </h2>
+            <div
+              class="font-body text-justify text-muted text-lg leading-relaxed"
+              data-animate="fadeInLeft">
+              <p>
+                <strong>Rénover un fauteuil</strong>, ce n’est pas seulement
+                changer un tissu. C’est redonner vie à une pièce riche de
+                souvenirs, et lui offrir un avenir. Retrouver une présence, un
+                confort, une allure, tout en respectant ce qui fait la valeur du
+                siège : sa ligne, son usage, son histoire et sa place dans votre
+                intérieur.
+              </p>
+              <p>
+                <strong>Artisan d’art</strong> et{" "}
+                <strong>tapissier décorateur à 30 minutes de Toulouse</strong>,
+                j’aborde chaque projet de restauration ou de réfection avec
+                exigence, sens du détail et regard décoratif. Selon votre
+                besoin, je propose la reprise du garnissage, le remplacement du
+                tissu, l’amélioration du confort, la réparation de l’assise, les
+                finitions cloutées ou galonnées, et le rééquilibrage esthétique
+                de la pièce.
+              </p>
+              <ul class="list-disc list-inside my-4">
+                <li>Premier avis sur photo</li>
+                <li>Accompagnement dans le choix des tissus</li>
+                <li>Rénovation soignée à l’atelier de Roquettes (31)</li>
+              </ul>
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+                M'envoyer vos photos
+              </a>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+
+    {
+      content.outlineHeading && (
+        <div class="max-w-4xl mx-auto text-center">
+          <h2
+            class="font-heading text-2xl md:text-3xl text-foreground"
+            data-animate="fadeInUp">
+            {content.outlineHeading}
+          </h2>
+        </div>
+      )
+    }
+  </div>
+</section>

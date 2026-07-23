@@ -1,0 +1,40 @@
+---
+import type { ContentAnimation } from "./types"
+
+interface Props {
+  content: {
+    headline: string
+    text: string
+    button: {
+      text: string
+      href: string
+    }
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="cta" class="py-24 bg-foreground">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h2
+      class="font-heading text-3xl md:text-5xl text-white mb-8 leading-tight"
+      data-animate="fadeInUp">
+      {content.headline}
+    </h2>
+    <div
+      class="text-white/80 text-justify text-lg leading-relaxed mb-10"
+      data-animate="fadeInUp"
+      style="transition-delay: 0.1s">
+      <p set:html={content.text} />
+    </div>
+    <a
+      href={content.button.href}
+      class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white uppercase tracking-widest text-sm hover:bg-white hover:text-foreground transition-colors"
+      data-animate="fadeInUp"
+      style="transition-delay: 0.2s">
+      {content.button.text}
+    </a>
+  </div>
+</section>

@@ -1,8 +1,6 @@
 ---
 import Head from "./Head.astro"
 import SkipLink from "./SkipLink.astro"
-import Navigation from "./Navigation.astro"
-import Footer from "./Footer.astro"
 import Analytics from "@vercel/analytics/astro"
 
 import "../styles/global.css"
@@ -23,13 +21,10 @@ const { seo } = Astro.props
   </head>
   <body class="antialiased">
     <SkipLink />
-    <Navigation />
 
     <main id="main-content">
       <slot />
     </main>
-
-    <Footer />
   </body>
 </html>
 
@@ -61,5 +56,45 @@ const { seo } = Astro.props
   // Global animation configurations
   ScrollTrigger.config({
     ignoreMobileResize: true
+  })
+
+  // Initialize data-animate animations
+  const animatedElements = document.querySelectorAll('[data-animate]')
+  animatedElements.forEach((el) => {
+    const type = el.getAttribute('data-animate') || 'fadeInUp'
+    const delay = parseFloat((el as HTMLElement).dataset.delay || '0')
+    const duration = parseFloat((el as HTMLElement).dataset.duration || '0.8')
+
+    let fromVars: any = { opacity: 0, duration, delay, ease: 'power3.out' }
+
+    switch (type) {
+      case 'fadeInUp':
+        fromVars.y = 40
+        break
+      case 'fadeInDown':
+        fromVars.y = -40
+        break
+      case 'fadeInLeft':
+        fromVars.x = -40
+        break
+      case 'fadeInRight':
+        fromVars.x = 40
+        break
+      case 'scaleIn':
+        fromVars.scale = 0.9
+        break
+      case 'parallax':
+        fromVars.yPercent = -20
+        break
+    }
+
+    ScrollTrigger.create({
+      trigger: el as Element,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.fromTo(el as Element, fromVars, { opacity: 1, x: 0, y: 0, scale: 1, yPercent: 0 })
+      }
+    })
   })
 </script>

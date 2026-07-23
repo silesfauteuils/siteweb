@@ -1,0 +1,71 @@
+---
+interface Props {
+  content: {
+    title: string
+    items: {
+      question: string
+      answer: string
+    }[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="faq" class="py-24 bg-background">
+  <div id="faq-container" class="max-w-3xl mx-auto px-6">
+    <h2
+      class="font-heading text-3xl md:text-4xl text-foreground mb-12 text-center">
+      {content.title}
+    </h2>
+    <div class="space-y-4">
+      {
+        content.items.map((item, i) => (
+          <details
+            key={i}
+            class="group bg-white rounded-xl shadow-sm overflow-hidden">
+            <summary class="flex items-center justify-between p-6 cursor-pointer text-foreground font-heading text-lg list-none">
+              <h3>{item.question}</h3>
+              <span class="ml-4 text-accent transition-transform duration-300 group-open:rotate-45">
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </span>
+            </summary>
+            <div
+              class="px-6 pb-6 text-muted leading-relaxed"
+              set:html={item.answer}
+            />
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const faqContainer = document.getElementById("faq-container")
+  if (faqContainer) {
+    const details = faqContainer.querySelectorAll("details")
+    details.forEach((detail) => {
+      detail.addEventListener("toggle", () => {
+        if (detail.open) {
+          details.forEach((other) => {
+            if (other !== detail && other.open) {
+              other.removeAttribute("open")
+            }
+          })
+        }
+      })
+    })
+  }
+</script>

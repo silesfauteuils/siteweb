@@ -1,0 +1,57 @@
+---
+import type { ContentImage, ContentAnimation } from "./types"
+
+interface Props {
+  content: {
+    title: string
+    tagline: string
+    intro: string
+    philosophy: string
+    portrait: ContentImage
+    button: {
+      text: string
+      href: string
+    }
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="philosophy" class="py-24 bg-background">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="text-accent uppercase tracking-widest text-sm mb-4">
+        {content.tagline}
+      </p>
+      <h2 class="font-heading text-4xl md:text-5xl text-foreground">
+        {content.title}
+      </h2>
+      <div class="mt-4 text-muted text-lg" set:html={content.intro} />
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div data-animate="fadeInLeft">
+        <div
+          class="text-foreground text-lg text-justify leading-relaxed"
+          set:html={content.philosophy}
+        />
+      </div>
+      <div class="space-y-8" data-animate="fadeInRight">
+        <img
+          src={content.portrait.src}
+          alt={content.portrait.alt}
+          class="w-full h-[400px] object-cover rounded-2xl shadow-sm"
+        />
+        <div class="text-center">
+          <a
+            href={content.button.href}
+            class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+            {content.button.text}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

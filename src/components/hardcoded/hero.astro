@@ -1,0 +1,151 @@
+---
+import type { ContentImage, ContentAnimation } from "./types"
+
+interface Props {
+  content: {
+    badge: string
+    heading: string
+    buttons: {
+      primary: { text: string; href: string }
+      secondary: { text: string; href: string }
+    }
+    images: {
+      hero: ContentImage
+    }
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="hero" class="relative min-h-screen overflow-hidden bg-background">
+  <div class="hero-inner relative z-10 h-screen flex flex-col justify-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <div class="max-w-2xl">
+        <p
+          class="text-accent uppercase tracking-widest text-sm mb-4 opacity-0 translate-y-8"
+          data-animate="fadeInUp">
+          {content.badge}
+        </p>
+        <h1
+          class="font-heading text-5xl md:text-7xl text-background leading-none mb-6 opacity-0 translate-y-8"
+          data-animate="fadeInUp"
+          style="transition-delay: 0.1s">
+          {content.heading}
+        </h1>
+        <div class="max-w-4xl mx-auto mb-4">
+          <h2
+            class="font-heading text-background text-2xl md:text-3xl"
+            data-animate="fadeInUp">
+            Si les fauteuils parlaient, tapissier d’ameublement
+          </h2>
+        </div>
+        <div
+          class="text-background-warm text-lg md:text-xl mb-8 max-w-xl opacity-0 translate-y-8"
+          data-animate="fadeInUp"
+          style="transition-delay: 0.2s">
+          <p>8 Rue du Moulin, 31120 Roquettes</p>
+          <p>06 50 72 78 43</p>
+          <ul class="list-disc list-inside">
+            <li>Ouvert du Lundi au Samedi, sur rendez-vous</li>
+            <li>
+              Enlèvement & livraison à domicile (gratuit jusqu’à 20 km autour de
+              Roquettes)
+            </li>
+            <li>Travaux réalisés entre 2 jours et 3 semaines</li>
+          </ul>
+        </div>
+        <div
+          class="flex flex-wrap gap-4 mb-8 opacity-0 translate-y-8"
+          data-animate="fadeInUp"
+          style="transition-delay: 0.3s">
+          <a
+            href={content.buttons.primary.href}
+            class="inline-flex items-center gap-2 px-8 py-4 bg-background text-foreground uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+            {content.buttons.primary.text}
+          </a>
+          <a
+            href={content.buttons.secondary.href}
+            class="inline-flex items-center gap-2 px-8 py-4 border bg-foreground text-background border-foreground uppercase tracking-widest text-sm hover:bg-foreground/80 transition-colors">
+            {content.buttons.secondary.text}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <img
+    src={content.images.hero.src}
+    alt={content.images.hero.alt}
+    class="absolute inset-0 w-full h-full object-cover z-1"
+    data-parallax
+  />
+
+  <div
+    class="absolute inset-0 z-2 bg-gradient-to-r from-black/60 via-black/30 to-transparent">
+  </div>
+
+  <div
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 opacity-0"
+    data-animate="fadeInUp"
+    style="transition-delay: 0.5s">
+    <a
+      href="#about"
+      class="flex flex-col items-center gap-2 text-muted hover:text-foreground transition-colors">
+      <span class="text-xs uppercase tracking-widest">Scroll</span>
+      <svg
+        width="16"
+        height="24"
+        viewBox="0 0 16 24"
+        fill="none"
+        class="animate-bounce">
+        <path
+          d="M8 4V20M8 20L2 14M8 20L14 14"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+  gsap.registerPlugin(ScrollTrigger)
+
+  const parallaxEl = document.querySelector("[data-parallax]")
+  if (parallaxEl) {
+    gsap.to(parallaxEl, {
+      yPercent: 20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    })
+  }
+
+  const heroFades = document.querySelectorAll("#hero [data-animate]")
+  heroFades.forEach((el) => {
+    const delay = parseFloat(el.style.transitionDelay) || 0
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay,
+          ease: "power3.out"
+        })
+      }
+    })
+  })
+</script>

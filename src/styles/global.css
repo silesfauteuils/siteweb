@@ -1,2 +1,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: white;
+  --color-background-warm: #fbf8f7;
+  --color-foreground: #31190b;
+  --color-muted: #3b3b3b;
+  --color-muted-light: #f0ebea;
+  --color-accent: #c8a853;
+  --color-accent-secondary: #b3fc6a;
+  --font-heading: "Instrument Serif", sans-serif;
+  --font-body: "Onest", sans-serif;
+}

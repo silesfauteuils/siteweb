@@ -1,0 +1,33 @@
+---
+interface Props {
+  services: string[]
+}
+
+const { services } = Astro.props
+---
+
+<section id="stats" class="py-24 bg-background-warm">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h3 class="font-heading text-3xl md:text-4xl text-foreground mb-4">
+        Quelles pièces me confier ?
+      </h3>
+    </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+      {
+        services.map((service, i) => (
+          <li
+            key={i}
+            class="flex items-start gap-3 p-6 bg-white rounded-xl shadow-sm"
+            data-animate="fadeInUp"
+            style={`transition-delay: ${i * 0.1}s`}>
+            <svg class="w-5 h-5 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <div class="text-foreground text-lg leading-relaxed" set:html={service} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

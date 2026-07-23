@@ -1,0 +1,41 @@
+---
+import type { ContentImage, ContentAnimation } from './types'
+
+interface Props {
+  content: {
+    rating: string
+    quote: string
+    author: {
+      name: string
+      company: string
+    }
+    images: {
+      author: ContentImage
+      stars: string
+    }
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="testimonial" class="py-24 bg-background">
+  <div class="max-w-4xl mx-auto px-6 text-center" data-animate="fadeInUp">
+    <img src={content.images.stars} alt="5 stars" class="w-32 h-auto mx-auto mb-8 invert opacity-80" data-animate="scaleIn" />
+    <blockquote class="font-heading text-2xl md:text-4xl text-foreground leading-relaxed mb-10">
+      {content.quote}
+    </blockquote>
+    <div class="flex items-center justify-center gap-4" data-animate="fadeInUp" style="transition-delay: 0.2s">
+      <img
+        src={content.images.author.src}
+        alt={content.images.author.alt}
+        class="w-12 h-12 rounded-full object-cover"
+      />
+      <div class="text-left">
+        <p class="font-heading text-foreground text-lg">{content.author.name}</p>
+        <p class="text-muted text-sm">{content.author.company}</p>
+      </div>
+    </div>
+  </div>
+</section>

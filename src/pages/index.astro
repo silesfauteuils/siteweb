@@ -1,0 +1,518 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Hero from "../components/hardcoded/hero.astro"
+import About from "../components/hardcoded/about.astro"
+import Stats from "../components/hardcoded/stats.astro"
+import Showcase from "../components/hardcoded/showcase.astro"
+import Process from "../components/hardcoded/process.astro"
+import Philosophy from "../components/hardcoded/philosophy.astro"
+import Immersive from "../components/hardcoded/immersive.astro"
+import Features from "../components/hardcoded/features.astro"
+import Elevated from "../components/hardcoded/elevated.astro"
+import Amenities from "../components/hardcoded/amenities.astro"
+import Testimonial from "../components/hardcoded/testimonial.astro"
+import Gallery from "../components/hardcoded/gallery.astro"
+import Faq from "../components/hardcoded/faq.astro"
+import Cta from "../components/hardcoded/cta.astro"
+import Explore from "../components/hardcoded/explore.astro"
+import SiteFooter from "../components/hardcoded/siteFooter.astro"
+
+const seo = {
+  title: "Tapissier d’ameublement Roquettes (Toulouse, 31)",
+  description:
+    "Atelier de tapisserie à Roquettes (Haute-Garonne, 31) | Restauration de fauteuils, canapés, chaises | Enlèvement & Livraison | Estimation gratuite sur photos",
+  robots: "all"
+}
+---
+
+<Layout seo={seo}>
+  <section class="sections">
+    <Hero
+      content={{
+        badge:
+          "Artisanat durable - CAP Tapissier d’ameublement - Proximité géographique",
+        heading:
+          "Tapissier d’ameublement à Roquettes, près de Toulouse (Haute-Garonne, 31)",
+        buttons: {
+          primary: { text: "Devis gratuit", href: "/contact-us" },
+          secondary: { text: "Venir à l'atelier", href: "/availability" }
+        },
+        images: {
+          hero: {
+            src: "../images/hero1.JPG",
+            alt: "Luxury residential tower with panoramic city views at dusk"
+          }
+        }
+      }}
+    />
+
+    <Features
+      content={{
+        blocks: [
+          {
+            subtitle: "",
+            heading:
+              "Restauration de fauteuils, chaises, canapés et assises autour de Toulouse",
+            image: {
+              src: "../images/hero2.JPG",
+              alt: "Floor-to-ceiling windows overlooking the city skyline"
+            }
+          }
+        ],
+        outlineHeading: ""
+      }}
+    />
+
+    <Stats
+      services={[
+        "<p>La <strong>restauration de vos fauteuils anciens</strong>, vintage ou contemporains.</p>",
+        "<p>La <strong>rénovation de vos canapés en cuir ou en tissu</strong> (réparation et rembourrage des canapés, des coussins d’assises et de dossier).</p>",
+        "<p>Le choix des tissus et la <strong>tapisserie de vos fauteuils</strong> et chaises.</p>",
+        "<p>Le <strong>relooking de vos chaises</strong> en bois, cannées et rustiques.</p>",
+        "<p>La <strong>réparation de chaises usées</strong> ou affaissées.</p>",
+        "<p>Des projets de <strong>sellerie légère</strong> (banquettes outdoor et caravaning, salles d’attente…).</p>",
+        "<p>Des travaux de <strong>coutures</strong> et <strong>petites réparations</strong> (fermetures éclairs, accoudoirs, coussins…).</p>"
+      ]}
+    />
+
+    <Gallery
+      content={{
+        heading: "Galerie",
+        items: [
+          {
+            image: {
+              src: "/images/img1.png",
+              alt: "Master bedroom with panoramic windows"
+            },
+            caption: "Canapé"
+          },
+          {
+            image: {
+              src: "/images/img2.jpg",
+              alt: "Spacious living room with city views"
+            },
+            caption: "Fauteuil"
+          },
+          {
+            image: {
+              src: "/images/img3.JPG",
+              alt: "Rooftop sky garden with lush greenery"
+            },
+            caption: "Chaise"
+          }
+        ]
+      }}
+    />
+
+    <Cta
+      content={{
+        headline: "Un atelier de tapisserie autour de vous (31, Haute-Garonne)",
+        text: "<p>Mon <strong>atelier de tapisserie</strong> est idéalement situé pour les particuliers vivant à <strong>Roquettes, Toulouse, Muret</strong>, Portet-sur-Garonne, <strong>Cugnaux</strong>, Villeneuve-Tolosane, Frouzins, Seysses, Roques, Pins-Justaret, <strong>Pinsaguel</strong> et dans les communes voisines.</p>",
+        button: {
+          text: "Demander un devis gratuit",
+          href: "/contact-us"
+        }
+      }}
+    />
+
+    <Showcase
+      content={{
+        title:
+          "Réfection d’un canapé de style et nettoyage de deux fauteuils bergères en 10 jours",
+        tagline: "Avant / Après",
+        testimonial: {
+          quote:
+            "Céline Blin est une personne délicate et professionnelle, nous sommes enchantées de son travail, et ces prix sont tout à fait corrects. N'hésitez pas à lui confier une restauration, ce sera bien fait et dans de bonnes conditions.",
+          author: {
+            name: "Nathalie Barriac",
+            company: ""
+          }
+        },
+        body: "<p>Mme Barriac nous a confié la <strong>réfection complète d’un canapé de style</strong>. Pour répondre à son besoin de fermeté, nous avons remplacé l'ancien garnissage par des mousses neuves Haute Résilience (HR), parfaitement adaptées au confort demandé. Côté esthétique, l'assise, le dossier ainsi que les joues intérieures des accoudoirs arborent désormais un nouveau tissu. Par souci d’harmonie, nous avons conservé un passepoil aux couleurs d’origine, et souligné les accotoirs d’une finition cloutée. Nous avons également nettoyé ses deux <strong>fauteuils bergères</strong> assortis. Grâce à ce travail d'harmonisation, notre cliente profite désormais d’un salon unique, esthétique et confortable ! Projet réalisé à 4 mains - Délai : 10 jours</p>",
+        beforeAfter: {
+          before: {
+            src: "/images/barriacold.png",
+            alt: "Fauteuil avant restauration"
+          },
+          after: {
+            src: "/images/img1.png",
+            alt: "Fauteuil après restauration"
+          }
+        }
+      }}
+    />
+
+    <Philosophy
+      content={{
+        title: "Ma philosophie",
+        tagline: "Révéler l’âme de vos assises",
+        intro:
+          "<p>Vous n’avez pas toujours besoin de tourner la page. Un fauteuil de famille, une chaise usée, une banquette à reprendre ou un canapé marqué par le temps gardent souvent en eux une vraie présence. Une patine usée, un tissu effiloché, une assise fatiguée : autant de traces qui <strong>racontent quelque chose</strong> de beau et méritent d’être observées avec attention.</p>",
+        philosophy:
+          "<p>Avec Si les fauteuils parlaient, <strong>mon atelier de tapisserie près de Toulouse (31)</strong>, je travaille pour celles et ceux qui veulent préserver, faire durer et sublimer ce qui mérite de l’être.</p><p>Nous partageons la même conviction : un bel intérieur se construit aussi dans l’envie de <strong>donner une seconde vie</strong> à des fauteuils qui ont du caractère. Au quotidien, je respecte l’âme de chaque pièce, sublime ses lignes et soigne chaque finition pour qu’elle retrouve sa place dans votre quotidien avec justesse, élégance et évidence.</p><p>Certaines restaurations demandent plus qu’un travail de tapisserie. Lorsque la pièce l’exige, je fais appel à des <strong>partenaires</strong> de confiance aux savoir-faire complémentaires : <strong>aérogommage, peinture</strong> décorative, <strong>ébénisterie</strong> ou interventions plus spécifiques sur des sièges de caractère, afin de préserver la cohérence et la qualité du résultat final. Ensemble nous réalisons une restauration juste, soignée et durable.</p>",
+        portrait: {
+          src: "/images/portrait.jpg",
+          alt: "Portrait de Céline Blin dans son atelier"
+        },
+        button: {
+          text: "Envoyer un message",
+          href: "/contact-us"
+        }
+      }}
+    />
+
+    <Process
+      content={{
+        title:
+          "Je vais faire de votre meuble usé ou oublié l’une des pièces maîtresse de votre aménagement intérieur.",
+        steps: [
+          {
+            text: "Utilisez le formulaire de contact pour me transmettre votre demande et vos photos."
+          },
+          {
+            text: "Vous recevez une estimation chiffrée de la rénovation avec proposition de tissus et étapes indispensables. Selon la complexité du projet, je me rends chez vous pour une étude précise de votre bien."
+          },
+          {
+            text: "Je me déplace à votre domicile pour évaluer précisément les travaux à faire, ou vous m’apportez votre siège à l’atelier, à votre convenance."
+          },
+          {
+            text: "Dès que vous avez choisi le tissu et les finitions, vous recevez votre devis gratuit détaillé."
+          },
+          {
+            text: "Après le paiement d’un acompte de 50%, je commence la restauration."
+          }
+        ],
+        outro:
+          "<p>Comptez entre 2 et 15 jours pour le travail de réfection, parfois un peu plus selon la technicité, les matériaux et l’approvisionnement du tissu. Le délai est contractualisé lors du devis.</p><p>Je vous livre votre assise restaurée à domicile :</p><p>gratuitement dans un rayon de 20 km autour de Roquettes (31)<br>frais de déplacement à prévoir au-delà</p>",
+        button: {
+          text: "Me présenter votre projet",
+          href: "/contact-us"
+        }
+      }}
+    />
+    <Gallery
+      content={{
+        heading: "Autres travaux de tapisserie et couture",
+        text: "<p>- Sellerie légère</p><p>- Travaux de couture</p><p>- Petites réparations</p><p>Banquettes, coussins, assises sur mesure, banquettes médicales, fauteuils dentaires, banquettes de caravane, changement de fermetures Éclair… : j’étudie tous vos projets et vous informe en toute transparence de la faisabilité des travaux par mon atelier.</p>",
+        items: [
+          {
+            image: {
+              src: "/images/img1.png",
+              alt: "Canapé"
+            },
+            caption: "Canapé"
+          },
+          {
+            image: {
+              src: "/images/img2.jpg",
+              alt: "Fauteuil"
+            },
+            caption: "Fauteuil"
+          },
+          {
+            image: {
+              src: "/images/img3.JPG",
+              alt: "Chaise"
+            },
+            caption: "Chaise"
+          }
+        ]
+      }}
+    />
+
+    <Gallery
+      content={{
+        heading: "Je chine pour vous",
+        text: "<p>Avec Si les fauteuils en parlaient, je chine aussi pour vous des meubles vintage, dans le style que vous cherchez pour votre intérieur. Je m’occupe de leur restauration ou vous les vends en l’état. </p>",
+        items: [
+          {
+            image: {
+              src: "/images/img1.png",
+              alt: "Canapé"
+            },
+            caption: "Canapé"
+          },
+          {
+            image: {
+              src: "/images/img2.jpg",
+              alt: "Fauteuil"
+            },
+            caption: "Fauteuil"
+          },
+          {
+            image: {
+              src: "/images/img3.JPG",
+              alt: "Chaise"
+            },
+            caption: "Chaise"
+          }
+        ]
+      }}
+    />
+
+    <Cta
+      content={{
+        headline: "Pour une esthétique durable & responsable",
+        text: "<p>Confier un siège à un <strong>tapissier d’ameublement autour de vous</strong>, c’est choisir une esthétique durable et responsable. Vous préservez un meuble auquel vous tenez, vous valorisez ce qui existe déjà, et vous offrez à votre intérieur une pièce pensée pour durer, avec un niveau de finition en accord avec son caractère.<ul class='list-disc list-inside'><li>Devis gratuit et diagnostic honnête, sans travaux inutiles</li><li>Accompagnement dans le choix des tissus et des finitions</li><li>Restauration soignée, pensée autant pour le confort que pour le rendu visuel</li><li>Atelier basé à Roquettes, au sud de Toulouse (Haute-Garonne)</li><li>Possibilité d’un premier avis à distance à partir de photos</li></ul></p>",
+        button: {
+          text: "Me présenter votre projet",
+          href: "/contact-us"
+        }
+      }}
+    />
+
+    <Faq
+      content={{
+        title: "Vos questions",
+        items: [
+          {
+            question: "Combien coûte la restauration d’un fauteuil ?",
+            answer:
+              "<p>Le <strong>prix d’une rénovation</strong> dépend de l’état du siège, du garnissage à reprendre, du tissu choisi et des finitions. <strong>L'enlèvement et la livraison sont gratuits</strong> si vous vivez autour de Roquettes (15-20km). Au-delà, des frais de déplacement s’appliquent. Contactez-moi pour un prix précis.</p>"
+          },
+          {
+            question: "Intervenez-vous uniquement à Roquettes ?",
+            answer:
+              "<p><strong>L’atelier de tapisserie est basé à Roquettes</strong>, mais les demandes viennent aussi de Toulouse, Muret, Portet-sur-Garonne, Cugnaux, Villeneuve-Tolosane, Frouzins, Seysses, Roques, Pins-Justaret et des communes voisines. Équipée d'un <strong>véhicule adapté</strong>, je me charge de l'enlèvement et de la livraison de vos fauteuils et objets plus volumineux.</p>"
+          },
+          {
+            question: "Peut-on obtenir un devis sans se déplacer ?",
+            answer:
+              "<p>Je vous fais un <strong>premier retour à partir de photos</strong> de votre assise. Merci de m’envoyer une vue d’ensemble, le dessous de l’assise et le dos pour mieux évaluer le travail à prévoir. Ensuite, je me déplace chez vous pour préciser le travail à réaliser et bien cerner vos attentes. Je vous livre alors un <strong>devis gratuit</strong> détaillant précisément les travaux de réfection prévus.</p>"
+          },
+          {
+            question: "En combien de temps vais-je récupérer mon bien ?",
+            answer:
+              "Quand le projet est validé, que l’acompte est versé et que les matériaux sont disponibles, le temps de travail se situe généralement <strong>entre 2 jours et 15 jours</strong>, avec certains projets pouvant aller <strong>jusqu’à environ 3 semaines</strong>. Je vous précise exactement le délai lors de la signature du devis."
+          },
+          {
+            question:
+              "Faites-vous uniquement de la restauration de fauteuils ?",
+            answer:
+              "<p>Non, mon atelier restaure <strong>tous les types d’assises</strong> (fauteuils, canapés, chaises, sellerie légère…) et propose aussi de <strong>petites réparations</strong> et <strong>travaux de couture</strong> associés (coussins, fermetures éclairs…). <strong>Je chine aussi pour vous</strong> le meuble de vos rêves et le restaure si nécessaire !</p>"
+          },
+          {
+            question: "Faites-vous le décapage des bois ?",
+            answer:
+              "<p>Je ne réalise pas moi-même le décapage ou l’aérogommage du bois, mais je travaille avec un artisan partenaire spécialisé. De même, si votre assise nécessite une remise en peinture, je peux faire appel à un collaborateur de confiance. Je me charge de coordonner les échanges et de vous transmettre un devis pour l’ensemble de la prestation.</p>"
+          },
+          {
+            question: "Réalisez-vous des abat-jours sur mesure ?",
+            answer:
+              "<p>La <strong>confection d'abat-jours</strong> pour vos luminaires est un savoir-faire bien spécifique pour lequel je m’associe avec une <strong>collègue créatrice</strong> de confiance. Selon votre projet, je peux soit lui confier votre demande en sous-traitance pour vous livrer un ensemble complet, soit vous orienter directement vers elle afin que vous conceviez ensemble l'abat-jour idéal.</p>"
+          },
+          {
+            question: "Est-ce que mon fauteuil vaut la peine d’être restauré ?",
+            answer:
+              "Quasiment toujours. <strong>Si la structure est saine</strong>, elle est souvent en bois massif de qualité bien supérieure au mobilier moderne. Le restaurer, c’est, au-delà de la préservation sentimentale d’un patrimoine familial, s’offrir une pièce unique tout en faisant un <strong>choix écoresponsable</strong> et durable."
+          },
+          {
+            question: "Et pour les sièges récents ou industriels ?",
+            answer:
+              "Dans certains cas, la <strong>réfection artisanale</strong> (main-d’œuvre et matériaux de qualité) peut représenter un coût équivalent ou supérieur au prix d’achat initial. Cependant, restaurer, c’est augmenter considérablement la <strong>durée de vie de l’objet</strong> : souvent, les mousses sont encore en bon état et jeter cette matière première est <strong>très polluant</strong>. Choisir la réfection, c’est conserver un mobilier qui vous est familier tout en prenant un engagement écologique, avec la garantie de repartir sur une couverture de qualité."
+          },
+          {
+            question:
+              "Mon animal de compagnie a dévoré l’accoudoir de mon canapé : dois-je tout refaire ?",
+            answer:
+              "Pas obligatoirement ! Il existe des <strong>solutions techniques et esthétiques</strong> pour régler cela. Contactez-moi avec une photo du problème et je vous proposerai une solution adaptée."
+          }
+        ]
+      }}
+    />
+
+    <Cta
+      content={{
+        headline: "Vous recherchez un tapissier à Roquettes près de Toulouse ?",
+        text: "<p>Tapisser un fauteuil, restaurer une chaise, rembourrer un canapé ou améliorer le confort d’une assise : Si les fauteuils parlaient est là pour vous aider !</p>",
+        button: {
+          text: "Demander un devis gratuit",
+          href: "/contact-us"
+        }
+      }}
+    />
+
+    <!-- <Explore
+      content={{
+        heading: "",
+        cards: [],
+        neighborhood: {
+          heading:
+            "Un atelier de tapisserie autour de vous (31, Haute-Garonne)",
+          body: "Mon atelier de tapisserie est idéalement situé pour les particuliers vivant à Roquettes, Toulouse, Muret, Portet-sur-Garonne, Cugnaux, Villeneuve-Tolosane, Frouzins, Seysses, Roques, Pins-Justaret, Pinsaguel et dans les communes voisines.",
+          button: {
+            text: "Demander un devis gratuit",
+            href: "/residences-posts/explore-the-neighborhood"
+          },
+          image: {
+            src: "/images/atelier.JPG",
+            alt: "Aerial neighborhood view with parks and urban amenities"
+          }
+        }
+      }}
+    />
+
+    
+
+    
+
+    <About
+      content={{
+        badge: "Rise to a New Standard of Luxury",
+        name: "Skyline Luxe",
+        tagline: "Exclusive Living, Crafted for You",
+        categories: ["3 Bedrooms", "3 Bathrooms", "Private Balcony"],
+        specs: [
+          {
+            icon: "/images/lumea/size.svg",
+            label: "Room Size",
+            value: "2,450 sq. ft."
+          },
+          {
+            icon: "/images/lumea/resize.svg",
+            label: "Penthouse",
+            value: "#27A"
+          },
+          { icon: "/images/lumea/dollar.svg", label: "Price", value: "$2.3M" }
+        ],
+        images: {
+          main: {
+            src: "/images/lumea/hero.webp",
+            alt: "Skyline Luxe penthouse interior with panoramic city views"
+          }
+        },
+        buttons: {
+          primary: { text: "View", href: "/residences-posts/skyline-luxe-2" }
+        }
+      }}
+    />
+
+    <Immersive
+      content={{
+        heading:
+          "Lumea Residence is an architectural landmark that redefines modern city living.",
+        body: "Each residence within Lumea is crafted with expansive layouts, floor-to-ceiling windows, and premium timeless elegance.",
+        mainImage: {
+          src: "/images/lumea/immersive-main.webp",
+          alt: "Wide angle architectural view of Lumea Residence exterior"
+        },
+        gridImages: [
+          {
+            src: "/images/lumea/immersive-1.webp",
+            alt: "Residence panoramic view"
+          },
+          {
+            src: "/images/lumea/immersive-2.webp",
+            alt: "Residence interior detail"
+          },
+          {
+            src: "/images/lumea/immersive-3.webp",
+            alt: "Residence modern kitchen"
+          }
+        ]
+      }}
+    />
+
+    <Elevated
+      content={{
+        images: [
+          {
+            src: "/images/lumea/elevated-1.webp",
+            alt: "Towering view of Lumea Residence against the sky"
+          },
+          {
+            src: "/images/lumea/elevated-2.webp",
+            alt: "Luxurious modern interior living space"
+          }
+        ],
+        heading: "Elevated",
+        body: "Rising 35 stories above the city, Lumea Residence defines the art of elevated living. With only 120 carefully curated residences each apartment is designed."
+      }}
+    />
+
+    <Amenities
+      content={{
+        badge: "extraordinary experiences",
+        heading:
+          "Exclusive Amenities Designed for a Lifestyle Beyond your apartment walls",
+        body: "Living at Lumea Residence extends far beyond your apartment walls. Residents enjoy access to a rooftop sky garden, wellness and fitness center, private lounges, and a full-service concierge. These amenities are tailored to elevate everyday routines into extraordinary experiences, providing a lifestyle that blends leisure, privacy, and prestige.",
+        images: {
+          main: {
+            src: "/images/lumea/amenities.webp",
+            alt: "Rooftop infinity pool with city panoramic views"
+          }
+        }
+      }}
+    />
+
+    <Testimonial
+      content={{
+        rating: "stars",
+        quote:
+          '"Living at Lumea has redefined city life for me – the views are priceless, and the service is world-class."',
+        author: {
+          name: "Jane Doe",
+          company: "HealthCare Solutions"
+        },
+        images: {
+          author: {
+            src: "/images/lumea/author.svg",
+            alt: "Jane Doe portrait"
+          },
+          stars: "/images/lumea/stars.svg"
+        }
+      }}
+    /> -->
+
+    <!-- <SiteFooter
+      content={{
+        tagline: "Elevated Living, Redefined.",
+        logo: {
+          src: "/images/lumea/footer-logo.webp",
+          alt: "Lumea Residences"
+        },
+        description:
+          "With a private sky terrace, residents can indulge in serene escapes while still being connected.",
+        menus: [
+          {
+            title: "Explore",
+            links: [
+              { label: "Home", href: "/" },
+              { label: "About", href: "/about" },
+              { label: "Amenities", href: "/amenities" }
+            ]
+          },
+          {
+            title: "Rooms",
+            links: [
+              { label: "Skyline Luxe", href: "/residences" },
+              { label: "Horizon Suite", href: "/residences" },
+              { label: "Grand Vista", href: "/residences" }
+            ]
+          },
+          {
+            title: "Explore",
+            links: [
+              { label: "License", href: "/license" },
+              { label: "Neighborhood", href: "/neighborhood" },
+              { label: "Contact", href: "/contact-us" }
+            ]
+          },
+          {
+            title: "Follow Us",
+            links: [
+              { label: "Instagram", href: "https://instagram.com/" },
+              { label: "Facebook", href: "https://www.facebook.com/" },
+              { label: "X (Twitter)", href: "https://twitter.com/" }
+            ]
+          }
+        ],
+        copyright: "©2025 All Right Reserved. Powered by Webflow",
+        legalLinks: [
+          { label: "Terms of Use", href: "/terms-of-use" },
+          { label: "Privacy Policy", href: "/privacy-policy" }
+        ]
+      }}
+    /> -->
+  </section>
+</Layout>

@@ -1,0 +1,74 @@
+---
+import type { ContentImage, ContentAnimation } from './types'
+
+interface FooterLink {
+  label: string
+  href: string
+}
+
+interface Props {
+  content: {
+    tagline: string
+    logo: ContentImage
+    description: string
+    menus: {
+      title: string
+      links: FooterLink[]
+    }[]
+    copyright: string
+    legalLinks: FooterLink[]
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<footer id="siteFooter" class="bg-foreground text-white py-16">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+      <div>
+        <p class="text-accent uppercase tracking-widest text-sm mb-6" data-animate="fadeInUp">
+          {content.tagline}
+        </p>
+        <img
+          src={content.logo.src}
+          alt={content.logo.alt}
+          class="h-12 w-auto mb-6"
+          data-animate="fadeInUp"
+          style="transition-delay: 0.1s"
+        />
+        <p class="text-white/70 max-w-sm" data-animate="fadeInUp" style="transition-delay: 0.2s">
+          {content.description}
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {content.menus.map((menu, i) => (
+          <div key={i} data-animate="fadeInUp" style={`transition-delay: ${(i + 1) * 0.1}s`}>
+            <p class="text-white uppercase tracking-widest text-sm mb-4">{menu.title}</p>
+            <ul class="space-y-2">
+              {menu.links.map(link => (
+                <li>
+                  <a href={link.href} class="text-white/70 hover:text-white transition-colors text-sm">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/50 text-sm">{content.copyright}</p>
+      <div class="flex gap-6">
+        {content.legalLinks.map(link => (
+          <a key={link.href} href={link.href} class="text-white/50 hover:text-white text-sm transition-colors">
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

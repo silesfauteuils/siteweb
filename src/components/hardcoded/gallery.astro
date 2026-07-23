@@ -1,0 +1,61 @@
+---
+import type { ContentImage, ContentAnimation } from "./types"
+
+interface GalleryItem {
+  image: ContentImage
+  caption: string
+}
+
+interface Props {
+  content: {
+    heading: string
+    items: GalleryItem[]
+    text?: string
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="gallery" class="py-24 bg-background-warm">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2
+      class="font-heading text-4xl md:text-5xl text-foreground mb-12 text-center"
+      data-animate="fadeInUp">
+      {content.heading}
+    </h2>
+    {
+      content.text && (
+        <div
+          class="max-w-3xl mx-auto text-justify mb-12"
+          data-animate="fadeInUp">
+          <p
+            class="text-foreground text-lg leading-relaxed"
+            set:html={content.text}
+          />
+        </div>
+      )
+    }
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        content.items.map((item, i) => (
+          <div
+            key={i}
+            class="group overflow-hidden"
+            data-animate="fadeInUp"
+            style={`transition-delay: ${(i + 1) * 0.15}s`}>
+            <img
+              src={item.image.src}
+              alt={item.image.alt}
+              class="w-full h-[350px] object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <p class="mt-4 font-heading text-xl text-foreground">
+              {item.caption}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

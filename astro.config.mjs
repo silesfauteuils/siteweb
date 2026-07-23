@@ -47,6 +47,11 @@ export default defineConfig({
           hostname: "a.storyblok.com",
           pathname: `/f/${env.STORYBLOK_SPACE_ID}/**`,
         },
+        {
+          protocol: "https",
+          hostname: "cdn.prod.website-files.com",
+          pathname: "/**",
+        },
       ],
     },
   }),
@@ -58,6 +63,11 @@ export default defineConfig({
         protocol: "https",
         hostname: "a.storyblok.com",
         pathname: `/f/${env.STORYBLOK_SPACE_ID}/**`,
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.prod.website-files.com",
+        pathname: "/**",
       },
     ],
   },

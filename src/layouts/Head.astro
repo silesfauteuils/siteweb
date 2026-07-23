@@ -1,7 +1,7 @@
 ---
-import Analytics from "@vercel/analytics/astro";
+import Analytics from "@vercel/analytics/astro"
 
-const { seo } = Astro.props;
+const { seo } = Astro.props
 
 // Guard against undefined seo
 const safeSeo = seo || {
@@ -12,7 +12,7 @@ const safeSeo = seo || {
   ogImage: null,
   ogImageAlt: "",
   canonical: null
-};
+}
 ---
 
 <head>
@@ -21,14 +21,26 @@ const safeSeo = seo || {
 
   {safeSeo.title && <title>{safeSeo.title}</title>}
 
-  {safeSeo.themeColor && <meta name="theme-color" content={safeSeo.themeColor} />}
+  {
+    safeSeo.themeColor && (
+      <meta name="theme-color" content={safeSeo.themeColor} />
+    )
+  }
 
   <meta name="generator" content={Astro.generator} />
 
-  {safeSeo.canonical && <link rel="canonical" href={Astro.url.href + safeSeo.canonical} />}
+  {
+    safeSeo.canonical && (
+      <link rel="canonical" href={Astro.url.href + safeSeo.canonical} />
+    )
+  }
   {!safeSeo.canonical && <link rel="canonical" href={Astro.url.href} />}
 
-  {safeSeo.description && <meta name="description" content={safeSeo.description} />}
+  {
+    safeSeo.description && (
+      <meta name="description" content={safeSeo.description} />
+    )
+  }
 
   {safeSeo.robots && <meta name="robots" content={safeSeo.robots} />}
 
@@ -37,15 +49,35 @@ const safeSeo = seo || {
   {safeSeo.ogImage && <meta property="og:image" content={safeSeo.ogImage} />}
   <meta property="og:url" content={Astro.url.href} />
 
-  {safeSeo.description && <meta property="og:description" content={safeSeo.description} />}
+  {
+    safeSeo.description && (
+      <meta property="og:description" content={safeSeo.description} />
+    )
+  }
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="huitquatre" />
-  {safeSeo.ogImageAlt && <meta property="og:image:alt" content={safeSeo.ogImageAlt} />}
+  {
+    safeSeo.ogImageAlt && (
+      <meta property="og:image:alt" content={safeSeo.ogImageAlt} />
+    )
+  }
 
   <meta name="twitter:dnt" content="on" />
 
-  {safeSeo.schema && <script type="application/ld+json" set:html={safeSeo.schema} />}
+  {
+    safeSeo.schema && (
+      <script type="application/ld+json" set:html={safeSeo.schema} />
+    )
+  }
 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Onest:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
   <slot />
   <Analytics />
 </head>

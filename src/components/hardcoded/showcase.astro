@@ -1,0 +1,83 @@
+---
+import type { ContentImage, ContentAnimation } from "./types"
+
+interface Props {
+  content: {
+    title: string
+    tagline: string
+    testimonial: {
+      quote: string
+      author: {
+        name: string
+        company: string
+      }
+    }
+    body: string
+    beforeAfter: {
+      before: ContentImage
+      after: ContentImage
+    }
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section id="showcase" class="py-24 bg-background">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="text-accent uppercase tracking-widest text-xs mb-3">
+        {content.tagline}
+      </p>
+      <h2 class="font-heading text-3xl md:text-5xl text-foreground">
+        {content.title}
+      </h2>
+    </div>
+
+    <div class="text-center mb-20" data-animate="fadeInUp">
+      <blockquote
+        class="font-heading text-xl md:text-2xl text-foreground leading-relaxed mb-8">
+        "{content.testimonial.quote}"
+      </blockquote>
+      <div
+        class="flex items-start justify-start gap-4"
+        data-animate="fadeInUp"
+        style="transition-delay: 0.2s">
+        <div class="text-left">
+          <p class="font-heading text-foreground text-xl">
+            {content.testimonial.author.name}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
+      data-animate="fadeInUp">
+      <div class="space-y-4">
+        <p class="text-muted text-xs uppercase tracking-widest">Avant</p>
+        <img
+          src={content.beforeAfter.before.src}
+          alt={content.beforeAfter.before.alt}
+          class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+        />
+      </div>
+      <div class="space-y-4">
+        <p class="text-muted text-xs uppercase tracking-widest">Après</p>
+        <img
+          src={content.beforeAfter.after.src}
+          alt={content.beforeAfter.after.alt}
+          class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+        />
+      </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto text-justify" data-animate="fadeInUp">
+      <p
+        class="text-foreground text-lg leading-relaxed"
+        set:html={content.body}
+      />
+    </div>
+  </div>
+</section>
