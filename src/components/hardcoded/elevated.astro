@@ -16,7 +16,7 @@ const { content } = Astro.props
 <section id="elevated" class="py-24 bg-background">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <h2 class="font-heading text-5xl md:text-7xl text-foreground" data-animate="fadeInUp">
+      <h2 class="font-heading text-5xl md:text-7xl text-foreground opacity-0" data-animate="fadeInUp">
         {content.heading}
       </h2>
     </div>
@@ -25,10 +25,9 @@ const { content } = Astro.props
       {content.images.map((img, i) => (
         <div
           key={i}
-          class="overflow-hidden"
+          class="overflow-hidden opacity-0"
           data-animate="fadeInUp"
-          style={`transition-delay: ${(i + 1) * 0.15}s`}
-        >
+          data-delay={(i + 1) * 0.15}>
           <img
             src={img.src}
             alt={img.alt}
@@ -38,7 +37,7 @@ const { content } = Astro.props
       ))}
     </div>
 
-    <div class="max-w-2xl mx-auto text-center" data-animate="fadeInUp">
+    <div class="max-w-2xl mx-auto text-center opacity-0" data-animate="fadeInUp">
       <p class="text-muted text-lg leading-relaxed">{content.body}</p>
     </div>
   </div>

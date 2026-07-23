@@ -15,7 +15,8 @@ const { content } = Astro.props
 <section id="faq" class="py-24 bg-background">
   <div id="faq-container" class="max-w-3xl mx-auto px-6">
     <h2
-      class="font-heading text-3xl md:text-4xl text-foreground mb-12 text-center">
+      class="font-heading text-3xl md:text-4xl text-foreground mb-12 text-center opacity-0"
+      data-animate="fadeInUp">
       {content.title}
     </h2>
     <div class="space-y-4">
@@ -23,7 +24,9 @@ const { content } = Astro.props
         content.items.map((item, i) => (
           <details
             key={i}
-            class="group bg-white rounded-xl shadow-sm overflow-hidden">
+            class="group bg-white rounded-xl shadow-sm overflow-hidden"
+            data-animate="fadeInUp"
+            data-delay={i * 0.05}>
             <summary class="flex items-center justify-between p-6 cursor-pointer text-foreground font-heading text-lg list-none">
               <h3>{item.question}</h3>
               <span class="ml-4 text-accent transition-transform duration-300 group-open:rotate-45">
@@ -42,7 +45,7 @@ const { content } = Astro.props
               </span>
             </summary>
             <div
-              class="px-6 pb-6 text-muted leading-relaxed"
+              class="px-6 text-muted leading-relaxed overflow-hidden faq-answer"
               set:html={item.answer}
             />
           </details>
@@ -53,16 +56,46 @@ const { content } = Astro.props
 </section>
 
 <script>
+  import { gsap } from "gsap"
+
   const faqContainer = document.getElementById("faq-container")
   if (faqContainer) {
-    const details = faqContainer.querySelectorAll("details")
+    const details = Array.from(faqContainer.querySelectorAll("details"))
+
     details.forEach((detail) => {
+      const answer = detail.querySelector(".faq-answer")
+      if (!answer) return
+
       detail.addEventListener("toggle", () => {
         if (detail.open) {
           details.forEach((other) => {
             if (other !== detail && other.open) {
               other.removeAttribute("open")
+              const otherAnswer = other.querySelector(".faq-answer")
+              if (otherAnswer) {
+                gsap.to(otherAnswer, {
+                  maxHeight: 0,
+                  opacity: 0,
+                  duration: 0.3,
+                  ease: "power2.inOut"
+                })
+              }
             }
+          })
+
+          gsap.set(answer, { maxHeight: 0, opacity: 0 })
+          gsap.to(answer, {
+            maxHeight: "auto",
+            opacity: 1,
+            duration: 0.4,
+            ease: "power2.out"
+          })
+        } else {
+          gsap.to(answer, {
+            maxHeight: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.inOut"
           })
         }
       })

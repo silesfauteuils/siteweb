@@ -33,6 +33,8 @@ const { seo } = Astro.props
   import { gsap } from "gsap"
   import { ScrollTrigger } from "gsap/ScrollTrigger"
 
+  gsap.registerPlugin(ScrollTrigger)
+
   // Initialize Lenis
   const lenis = new Lenis({
     duration: 1.2,
@@ -53,48 +55,101 @@ const { seo } = Astro.props
   })
   gsap.ticker.lagSmoothing(0)
 
-  // Global animation configurations
   ScrollTrigger.config({
     ignoreMobileResize: true
   })
 
-  // Initialize data-animate animations
-  const animatedElements = document.querySelectorAll('[data-animate]')
-  animatedElements.forEach((el) => {
-    const type = el.getAttribute('data-animate') || 'fadeInUp'
-    const delay = parseFloat((el as HTMLElement).dataset.delay || '0')
-    const duration = parseFloat((el as HTMLElement).dataset.duration || '0.8')
-
-    let fromVars: any = { opacity: 0, duration, delay, ease: 'power3.out' }
-
+  function getAnimationState(type: string): Record<string, number> {
     switch (type) {
-      case 'fadeInUp':
-        fromVars.y = 40
-        break
-      case 'fadeInDown':
-        fromVars.y = -40
-        break
-      case 'fadeInLeft':
-        fromVars.x = -40
-        break
-      case 'fadeInRight':
-        fromVars.x = 40
-        break
-      case 'scaleIn':
-        fromVars.scale = 0.9
-        break
-      case 'parallax':
-        fromVars.yPercent = -20
-        break
+      case "fadeInUp":
+        return { y: 40 }
+      case "fadeInDown":
+        return { y: -40 }
+      case "fadeInLeft":
+        return { x: -40 }
+      case "fadeInRight":
+        return { x: 40 }
+      case "scaleIn":
+        return { scale: 0.9 }
+      case "scaleOut":
+        return { scale: 1.1 }
+      case "parallax":
+        return { yPercent: -20 }
+      default:
+        return {}
+    }
+  }
+
+  function createToState(el: Element, fromState: Record<string, any>): any {
+    const duration = parseFloat(el.dataset.duration || "0.8")
+    const delay = parseFloat(el.dataset.delay || "0")
+    const ease = el.dataset.ease || "power3.out"
+
+    const toState: any = {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      yPercent: 0,
+      duration,
+      delay,
+      ease
     }
 
+    if (fromState.yPercent) toState.yPercent = 0
+    if (fromState.scale) toState.scale = 1
+
+    return toState
+  }
+
+  // Separate above-fold (animate immediately) and below-fold (ScrollTrigger)
+  const allAnimated = Array.from(document.querySelectorAll("[data-animate]"))
+  const aboveFold: Element[] = []
+  const belowFold: Element[] = []
+
+  allAnimated.forEach((el) => {
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight * 0.95) {
+      aboveFold.push(el)
+    } else {
+      belowFold.push(el)
+    }
+  })
+
+  // Animate above-fold elements immediately
+  aboveFold.forEach((el) => {
+    const type = el.getAttribute("data-animate") || "fadeInUp"
+    const duration = parseFloat(el.dataset.duration || "0.8")
+    const delay = parseFloat(el.dataset.delay || "0")
+    const ease = el.dataset.ease || "power3.out"
+
+    const fromVars = { opacity: 0, ...getAnimationState(type) }
+    const toVars = createToState(el, fromVars)
+
+    gsap.set(el, fromVars)
+    gsap.to(el, toVars)
+  })
+
+  // ScrollTrigger for below-fold elements
+  belowFold.forEach((el) => {
+    const type = el.getAttribute("data-animate") || "fadeInUp"
+    const duration = parseFloat(el.dataset.duration || "0.8")
+    const delay = parseFloat(el.dataset.delay || "0")
+    const ease = el.dataset.ease || "power3.out"
+
+    const fromVars = { opacity: 0, ...getAnimationState(type) }
+    const toVars = createToState(el, fromVars)
+
+    gsap.set(el, fromVars)
+
     ScrollTrigger.create({
-      trigger: el as Element,
-      start: 'top 85%',
+      trigger: el,
+      start: "top 85%",
       once: true,
-      onEnter: () => {
-        gsap.fromTo(el as Element, fromVars, { opacity: 1, x: 0, y: 0, scale: 1, yPercent: 0 })
-      }
+      onEnter: () => gsap.to(el, toVars)
     })
   })
+
+  // Refresh after all setup
+  ScrollTrigger.refresh()
 </script>

@@ -19,21 +19,21 @@ const { content } = Astro.props
 <section id="cta" class="py-24 bg-foreground">
   <div class="max-w-3xl mx-auto px-6 text-center">
     <h2
-      class="font-heading text-3xl md:text-5xl text-white mb-8 leading-tight"
+      class="font-heading text-3xl md:text-5xl text-white mb-8 leading-tight opacity-0"
       data-animate="fadeInUp">
       {content.headline}
     </h2>
     <div
-      class="text-white/80 text-justify text-lg leading-relaxed mb-10"
+      class="text-white/80 text-justify text-lg leading-relaxed mb-10 opacity-0"
       data-animate="fadeInUp"
-      style="transition-delay: 0.1s">
+      data-delay="0.1">
       <p set:html={content.text} />
     </div>
     <a
       href={content.button.href}
-      class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white uppercase tracking-widest text-sm hover:bg-white hover:text-foreground transition-colors"
+      class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white uppercase tracking-widest text-sm hover:bg-white hover:text-foreground transition-colors opacity-0"
       data-animate="fadeInUp"
-      style="transition-delay: 0.2s">
+      data-delay="0.2">
       {content.button.text}
     </a>
   </div>

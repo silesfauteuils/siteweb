@@ -21,12 +21,12 @@ const { content } = Astro.props
 ---
 
 <section id="testimonial" class="py-24 bg-background">
-  <div class="max-w-4xl mx-auto px-6 text-center" data-animate="fadeInUp">
-    <img src={content.images.stars} alt="5 stars" class="w-32 h-auto mx-auto mb-8 invert opacity-80" data-animate="scaleIn" />
+  <div class="max-w-4xl mx-auto px-6 text-center opacity-0" data-animate="fadeInUp">
+    <img src={content.images.stars} alt="5 stars" class="w-32 h-auto mx-auto mb-8 invert opacity-0" data-animate="scaleIn" />
     <blockquote class="font-heading text-2xl md:text-4xl text-foreground leading-relaxed mb-10">
       {content.quote}
     </blockquote>
-    <div class="flex items-center justify-center gap-4" data-animate="fadeInUp" style="transition-delay: 0.2s">
+    <div class="flex items-center justify-center gap-4 opacity-0" data-animate="fadeInUp" data-delay="0.2">
       <img
         src={content.images.author.src}
         alt={content.images.author.alt}

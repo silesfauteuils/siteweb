@@ -26,9 +26,9 @@ const { content } = Astro.props
 ---
 
 <section id="about" class="py-16 md:py-24 bg-background">
-  <div class="max-w-7xl mx-auto px-6" data-anim-wrapper>
+  <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <div data-anim="fadeInLeft">
+      <div data-animate="fadeInLeft" data-delay="0" class="opacity-0">
         <p class="text-accent uppercase tracking-widest text-sm mb-4">{content.badge}</p>
         <h2 class="font-heading text-4xl md:text-5xl text-foreground mb-4">{content.name}</h2>
         <p class="text-muted text-lg mb-6">{content.tagline}</p>
@@ -53,7 +53,7 @@ const { content } = Astro.props
           {content.buttons.primary.text}
         </a>
       </div>
-      <div data-anim="fadeInRight">
+      <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
         <img
           src={content.images.main.src}
           alt={content.images.main.alt}
@@ -64,32 +64,4 @@ const { content } = Astro.props
   </div>
 </section>
 
-<script>
-  import { gsap } from "gsap"
-  import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-  gsap.registerPlugin(ScrollTrigger)
-
-  const wrapper = document.querySelector('[data-anim-wrapper]')
-  if (wrapper) {
-    ScrollTrigger.create({
-      trigger: wrapper,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => {
-        gsap.to(wrapper.querySelectorAll('[data-anim="fadeInLeft"]'), {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out'
-        })
-        gsap.to(wrapper.querySelectorAll('[data-anim="fadeInRight"]'), {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: 'power3.out'
-        })
-      }
-    })
-  }
-</script>

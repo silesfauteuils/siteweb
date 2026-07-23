@@ -28,23 +28,23 @@ const { content } = Astro.props
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
       <div>
-        <p class="text-accent uppercase tracking-widest text-sm mb-6" data-animate="fadeInUp">
+        <p class="text-accent uppercase tracking-widest text-sm mb-6 opacity-0" data-animate="fadeInUp">
           {content.tagline}
         </p>
         <img
           src={content.logo.src}
           alt={content.logo.alt}
-          class="h-12 w-auto mb-6"
+          class="h-12 w-auto mb-6 opacity-0"
           data-animate="fadeInUp"
-          style="transition-delay: 0.1s"
+          data-delay="0.1"
         />
-        <p class="text-white/70 max-w-sm" data-animate="fadeInUp" style="transition-delay: 0.2s">
+        <p class="text-white/70 max-w-sm opacity-0" data-animate="fadeInUp" data-delay="0.2">
           {content.description}
         </p>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
         {content.menus.map((menu, i) => (
-          <div key={i} data-animate="fadeInUp" style={`transition-delay: ${(i + 1) * 0.1}s`}>
+          <div key={i} class="opacity-0" data-animate="fadeInUp" data-delay={(i + 1) * 0.1}>
             <p class="text-white uppercase tracking-widest text-sm mb-4">{menu.title}</p>
             <ul class="space-y-2">
               {menu.links.map(link => (

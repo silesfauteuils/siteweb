@@ -35,15 +35,15 @@ const { content } = Astro.props
       </h2>
     </div>
 
-    <div class="text-center mb-20" data-animate="fadeInUp">
+    <div class="text-center mb-20 opacity-0" data-animate="fadeInUp">
       <blockquote
         class="font-heading text-xl md:text-2xl text-foreground leading-relaxed mb-8">
         "{content.testimonial.quote}"
       </blockquote>
       <div
-        class="flex items-start justify-start gap-4"
+        class="flex items-start justify-start gap-4 opacity-0"
         data-animate="fadeInUp"
-        style="transition-delay: 0.2s">
+        data-delay="0.2">
         <div class="text-left">
           <p class="font-heading text-foreground text-xl">
             {content.testimonial.author.name}
@@ -53,7 +53,7 @@ const { content } = Astro.props
     </div>
 
     <div
-      class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
+      class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 opacity-0"
       data-animate="fadeInUp">
       <div class="space-y-4">
         <p class="text-muted text-xs uppercase tracking-widest">Avant</p>
@@ -73,7 +73,7 @@ const { content } = Astro.props
       </div>
     </div>
 
-    <div class="max-w-3xl mx-auto text-justify" data-animate="fadeInUp">
+    <div class="max-w-3xl mx-auto text-justify opacity-0" data-animate="fadeInUp">
       <p
         class="text-foreground text-lg leading-relaxed"
         set:html={content.body}

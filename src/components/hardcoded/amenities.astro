@@ -20,17 +20,11 @@ const { content } = Astro.props
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div>
-        <p class="text-accent uppercase tracking-widest text-sm mb-4" data-animate="fadeInUp">
-          {content.badge}
-        </p>
-        <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-6" data-animate="fadeInUp">
-          {content.heading}
-        </h2>
-        <p class="text-muted text-lg leading-relaxed" data-animate="fadeInUp">
-          {content.body}
-        </p>
+        <p class="text-accent uppercase tracking-widest text-sm mb-4 opacity-0" data-animate="fadeInUp">{content.badge}</p>
+        <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-6 opacity-0" data-animate="fadeInUp">{content.heading}</h2>
+        <p class="text-muted text-lg leading-relaxed opacity-0" data-animate="fadeInUp">{content.body}</p>
       </div>
-      <div data-animate="fadeInRight">
+      <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
         <img
           src={content.images.main.src}
           alt={content.images.main.alt}

@@ -21,14 +21,14 @@ const { content } = Astro.props
 <section id="gallery" class="py-24 bg-background-warm">
   <div class="max-w-7xl mx-auto px-6">
     <h2
-      class="font-heading text-4xl md:text-5xl text-foreground mb-12 text-center"
+      class="font-heading text-4xl md:text-5xl text-foreground mb-12 text-center opacity-0"
       data-animate="fadeInUp">
       {content.heading}
     </h2>
     {
       content.text && (
         <div
-          class="max-w-3xl mx-auto text-justify mb-12"
+          class="max-w-3xl mx-auto text-justify mb-12 opacity-0"
           data-animate="fadeInUp">
           <p
             class="text-foreground text-lg leading-relaxed"
@@ -42,13 +42,13 @@ const { content } = Astro.props
         content.items.map((item, i) => (
           <div
             key={i}
-            class="group overflow-hidden"
+            class="group overflow-hidden opacity-0 gallery-card"
             data-animate="fadeInUp"
-            style={`transition-delay: ${(i + 1) * 0.15}s`}>
+            data-delay={(i + 1) * 0.15}>
             <img
               src={item.image.src}
               alt={item.image.alt}
-              class="w-full h-[350px] object-cover group-hover:scale-105 transition-transform duration-500"
+              class="w-full h-[350px] object-cover"
             />
             <p class="mt-4 font-heading text-xl text-foreground">
               {item.caption}
@@ -59,3 +59,20 @@ const { content } = Astro.props
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap"
+
+  document.querySelectorAll(".gallery-card").forEach((card) => {
+    const img = card.querySelector("img")
+    if (!img) return
+
+    card.addEventListener("mouseenter", () => {
+      gsap.to(img, { scale: 1.05, duration: 0.6, ease: "power2.out" })
+    })
+
+    card.addEventListener("mouseleave", () => {
+      gsap.to(img, { scale: 1, duration: 0.6, ease: "power2.out" })
+    })
+  })
+</script>
