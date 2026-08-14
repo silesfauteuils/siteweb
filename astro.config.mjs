@@ -20,7 +20,7 @@ export default defineConfig({
   //TODO Change url
   site: 'https://www.exemple.fr',
 
-  output: env.IS_PREVIEW ? "server" : "static",
+  output: "server",
 
   integrations: [storyblok({
       accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,

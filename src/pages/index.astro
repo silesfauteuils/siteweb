@@ -15,7 +15,7 @@ import Gallery from "../components/hardcoded/gallery.astro"
 import Faq from "../components/hardcoded/faq.astro"
 import Cta from "../components/hardcoded/cta.astro"
 import Explore from "../components/hardcoded/explore.astro"
-import SiteFooter from "../components/hardcoded/siteFooter.astro"
+import Footer from "../components/Footer.astro"
 
 const seo = {
   title: "Tapissier d’ameublement Roquettes (Toulouse, 31)",
@@ -34,8 +34,11 @@ const seo = {
         heading:
           "Tapissier d’ameublement à Roquettes, près de Toulouse (Haute-Garonne, 31)",
         buttons: {
-          primary: { text: "Devis gratuit", href: "/contact-us" },
-          secondary: { text: "Venir à l'atelier", href: "/availability" }
+          primary: { text: "Devis gratuit", href: "/contact" },
+          secondary: {
+            text: "Venir à l'atelier",
+            href: "https://maps.app.goo.gl/f5RHbZSMcBUAXRCF6"
+          }
         },
         images: {
           hero: {
@@ -110,7 +113,7 @@ const seo = {
         text: "<p>Mon <strong>atelier de tapisserie</strong> est idéalement situé pour les particuliers vivant à <strong>Roquettes, Toulouse, Muret</strong>, Portet-sur-Garonne, <strong>Cugnaux</strong>, Villeneuve-Tolosane, Frouzins, Seysses, Roques, Pins-Justaret, <strong>Pinsaguel</strong> et dans les communes voisines.</p>",
         button: {
           text: "Demander un devis gratuit",
-          href: "/contact-us"
+          href: "/contact"
         }
       }}
     />
@@ -156,7 +159,7 @@ const seo = {
         },
         button: {
           text: "Envoyer un message",
-          href: "/contact-us"
+          href: "/contact"
         }
       }}
     />
@@ -186,7 +189,7 @@ const seo = {
           "<p>Comptez entre 2 et 15 jours pour le travail de réfection, parfois un peu plus selon la technicité, les matériaux et l’approvisionnement du tissu. Le délai est contractualisé lors du devis.</p><p>Je vous livre votre assise restaurée à domicile :</p><p>gratuitement dans un rayon de 20 km autour de Roquettes (31)<br>frais de déplacement à prévoir au-delà</p>",
         button: {
           text: "Me présenter votre projet",
-          href: "/contact-us"
+          href: "/contact"
         }
       }}
     />
@@ -256,7 +259,7 @@ const seo = {
         text: "<p>Confier un siège à un <strong>tapissier d’ameublement autour de vous</strong>, c’est choisir une esthétique durable et responsable. Vous préservez un meuble auquel vous tenez, vous valorisez ce qui existe déjà, et vous offrez à votre intérieur une pièce pensée pour durer, avec un niveau de finition en accord avec son caractère.<ul class='list-disc list-inside'><li>Devis gratuit et diagnostic honnête, sans travaux inutiles</li><li>Accompagnement dans le choix des tissus et des finitions</li><li>Restauration soignée, pensée autant pour le confort que pour le rendu visuel</li><li>Atelier basé à Roquettes, au sud de Toulouse (Haute-Garonne)</li><li>Possibilité d’un premier avis à distance à partir de photos</li></ul></p>",
         button: {
           text: "Me présenter votre projet",
-          href: "/contact-us"
+          href: "/contact"
         }
       }}
     />
@@ -327,192 +330,10 @@ const seo = {
         text: "<p>Tapisser un fauteuil, restaurer une chaise, rembourrer un canapé ou améliorer le confort d’une assise : Si les fauteuils parlaient est là pour vous aider !</p>",
         button: {
           text: "Demander un devis gratuit",
-          href: "/contact-us"
+          href: "/contact"
         }
       }}
     />
-
-    <!-- <Explore
-      content={{
-        heading: "",
-        cards: [],
-        neighborhood: {
-          heading:
-            "Un atelier de tapisserie autour de vous (31, Haute-Garonne)",
-          body: "Mon atelier de tapisserie est idéalement situé pour les particuliers vivant à Roquettes, Toulouse, Muret, Portet-sur-Garonne, Cugnaux, Villeneuve-Tolosane, Frouzins, Seysses, Roques, Pins-Justaret, Pinsaguel et dans les communes voisines.",
-          button: {
-            text: "Demander un devis gratuit",
-            href: "/residences-posts/explore-the-neighborhood"
-          },
-          image: {
-            src: "/images/atelier.JPG",
-            alt: "Aerial neighborhood view with parks and urban amenities"
-          }
-        }
-      }}
-    />
-
-    
-
-    
-
-    <About
-      content={{
-        badge: "Rise to a New Standard of Luxury",
-        name: "Skyline Luxe",
-        tagline: "Exclusive Living, Crafted for You",
-        categories: ["3 Bedrooms", "3 Bathrooms", "Private Balcony"],
-        specs: [
-          {
-            icon: "/images/lumea/size.svg",
-            label: "Room Size",
-            value: "2,450 sq. ft."
-          },
-          {
-            icon: "/images/lumea/resize.svg",
-            label: "Penthouse",
-            value: "#27A"
-          },
-          { icon: "/images/lumea/dollar.svg", label: "Price", value: "$2.3M" }
-        ],
-        images: {
-          main: {
-            src: "/images/lumea/hero.webp",
-            alt: "Skyline Luxe penthouse interior with panoramic city views"
-          }
-        },
-        buttons: {
-          primary: { text: "View", href: "/residences-posts/skyline-luxe-2" }
-        }
-      }}
-    />
-
-    <Immersive
-      content={{
-        heading:
-          "Lumea Residence is an architectural landmark that redefines modern city living.",
-        body: "Each residence within Lumea is crafted with expansive layouts, floor-to-ceiling windows, and premium timeless elegance.",
-        mainImage: {
-          src: "/images/lumea/immersive-main.webp",
-          alt: "Wide angle architectural view of Lumea Residence exterior"
-        },
-        gridImages: [
-          {
-            src: "/images/lumea/immersive-1.webp",
-            alt: "Residence panoramic view"
-          },
-          {
-            src: "/images/lumea/immersive-2.webp",
-            alt: "Residence interior detail"
-          },
-          {
-            src: "/images/lumea/immersive-3.webp",
-            alt: "Residence modern kitchen"
-          }
-        ]
-      }}
-    />
-
-    <Elevated
-      content={{
-        images: [
-          {
-            src: "/images/lumea/elevated-1.webp",
-            alt: "Towering view of Lumea Residence against the sky"
-          },
-          {
-            src: "/images/lumea/elevated-2.webp",
-            alt: "Luxurious modern interior living space"
-          }
-        ],
-        heading: "Elevated",
-        body: "Rising 35 stories above the city, Lumea Residence defines the art of elevated living. With only 120 carefully curated residences each apartment is designed."
-      }}
-    />
-
-    <Amenities
-      content={{
-        badge: "extraordinary experiences",
-        heading:
-          "Exclusive Amenities Designed for a Lifestyle Beyond your apartment walls",
-        body: "Living at Lumea Residence extends far beyond your apartment walls. Residents enjoy access to a rooftop sky garden, wellness and fitness center, private lounges, and a full-service concierge. These amenities are tailored to elevate everyday routines into extraordinary experiences, providing a lifestyle that blends leisure, privacy, and prestige.",
-        images: {
-          main: {
-            src: "/images/lumea/amenities.webp",
-            alt: "Rooftop infinity pool with city panoramic views"
-          }
-        }
-      }}
-    />
-
-    <Testimonial
-      content={{
-        rating: "stars",
-        quote:
-          '"Living at Lumea has redefined city life for me – the views are priceless, and the service is world-class."',
-        author: {
-          name: "Jane Doe",
-          company: "HealthCare Solutions"
-        },
-        images: {
-          author: {
-            src: "/images/lumea/author.svg",
-            alt: "Jane Doe portrait"
-          },
-          stars: "/images/lumea/stars.svg"
-        }
-      }}
-    /> -->
-
-    <!-- <SiteFooter
-      content={{
-        tagline: "Elevated Living, Redefined.",
-        logo: {
-          src: "/images/lumea/footer-logo.webp",
-          alt: "Lumea Residences"
-        },
-        description:
-          "With a private sky terrace, residents can indulge in serene escapes while still being connected.",
-        menus: [
-          {
-            title: "Explore",
-            links: [
-              { label: "Home", href: "/" },
-              { label: "About", href: "/about" },
-              { label: "Amenities", href: "/amenities" }
-            ]
-          },
-          {
-            title: "Rooms",
-            links: [
-              { label: "Skyline Luxe", href: "/residences" },
-              { label: "Horizon Suite", href: "/residences" },
-              { label: "Grand Vista", href: "/residences" }
-            ]
-          },
-          {
-            title: "Explore",
-            links: [
-              { label: "License", href: "/license" },
-              { label: "Neighborhood", href: "/neighborhood" },
-              { label: "Contact", href: "/contact-us" }
-            ]
-          },
-          {
-            title: "Follow Us",
-            links: [
-              { label: "Instagram", href: "https://instagram.com/" },
-              { label: "Facebook", href: "https://www.facebook.com/" },
-              { label: "X (Twitter)", href: "https://twitter.com/" }
-            ]
-          }
-        ],
-        copyright: "©2025 All Right Reserved. Powered by Webflow",
-        legalLinks: [
-          { label: "Terms of Use", href: "/terms-of-use" },
-          { label: "Privacy Policy", href: "/privacy-policy" }
-        ]
-      }}
-    /> -->
+    <Footer />
   </section>
 </Layout>

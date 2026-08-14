@@ -1,0 +1,70 @@
+---
+interface FooterLink {
+  label: string
+  href: string
+}
+
+interface Props {
+  logoPlaceholder?: boolean
+}
+
+const { logoPlaceholder = true } = Astro.props
+---
+
+<footer class="bg-foreground text-white mt-16">
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+      <div class="flex flex-col items-center w-full md:items-start">
+        {
+          logoPlaceholder && (
+            <img
+              src="/logo_celine_blin.svg"
+              alt="Logo Céline Blin"
+              class="w-32 h-auto mb-6 logo-white"
+            />
+          )
+        }
+        <nav class="flex flex-col gap-3">
+          <a
+            href="/"
+            class="text-white/80 hover:text-white transition-colors text-sm"
+            >Accueil</a
+          >
+          <a
+            href="/contact"
+            class="text-white/80 hover:text-white transition-colors text-sm"
+            >Contact</a
+          >
+        </nav>
+      </div>
+      <div class="flex flex-col gap-3">
+        <a
+          href="/mentions-legales"
+          class="text-white/80 hover:text-white transition-colors text-sm"
+          >Mentions légales</a
+        >
+        <a
+          href="/politique-de-confidentialite"
+          class="text-white/80 hover:text-white transition-colors text-sm"
+          >Politique de confidentialité</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div
+      class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-2">
+      <p class="text-white/50 text-sm">
+        © {new Date().getFullYear()} Si les fauteuils parlaient. Tous droits réservés.
+      </p>
+      <p class="text-white/50 text-sm">
+        Fait par <a
+          href="https://www.huitquatre.fr"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/70 hover:text-white transition-colors">huitquatre</a
+        >
+      </p>
+    </div>
+  </div>
+</footer>

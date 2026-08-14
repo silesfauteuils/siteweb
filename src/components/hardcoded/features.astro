@@ -1,5 +1,5 @@
 ---
-import type { ContentAnimation, ContentImage } from './types'
+import type { ContentAnimation, ContentImage } from "./types"
 
 interface ContentBlock {
   subtitle: string
@@ -26,7 +26,9 @@ const { content } = Astro.props
           key={i}
           class={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24 ${i > 0 ? "lg:grid-flow-col-dense" : ""}`}>
           <div class={`${i > 0 ? "lg:col-start-2" : ""}`}>
-            <div class="rounded-2xl overflow-hidden opacity-0" data-animate="fadeInRight">
+            <div
+              class="rounded-2xl overflow-hidden opacity-0"
+              data-animate="fadeInRight">
               <img
                 src={block.image.src}
                 alt={block.image.alt}
@@ -72,7 +74,7 @@ const { content } = Astro.props
                 <li>Rénovation soignée à l'atelier de Roquettes (31)</li>
               </ul>
               <a
-                href="#"
+                href="/contact"
                 class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background uppercase tracking-widest text-sm hover:bg-accent transition-colors">
                 M'envoyer vos photos
               </a>

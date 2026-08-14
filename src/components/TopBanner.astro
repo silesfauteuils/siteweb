@@ -1,0 +1,101 @@
+---
+const bannerText = "Si les fauteils parlaient"
+const phone = "06 50 72 78 43"
+const email = "contact@silesfauteuilsparlaient.fr"
+---
+
+<div class="top-banner">
+  <div class="banner-track">
+    <span class="banner-content">
+      <span class="banner-text">{bannerText}</span>
+      <span class="banner-separator">—</span>
+      <a href="tel:+33650727843" class="banner-link">{phone}</a>
+      <span class="banner-separator">—</span>
+      <a href="mailto:{email}" class="banner-link">{email}</a>
+    </span>
+    <span class="banner-content" aria-hidden="true">
+      <span class="banner-text">{bannerText}</span>
+      <span class="banner-separator">—</span>
+      <a href="tel:+33650727843" class="banner-link">{phone}</a>
+      <span class="banner-separator">—</span>
+      <a href="mailto:{email}" class="banner-link">{email}</a>
+    </span>
+    <span class="banner-content" aria-hidden="true">
+      <span class="banner-text">{bannerText}</span>
+      <span class="banner-separator">—</span>
+      <a href="tel:+33650727843" class="banner-link">{phone}</a>
+      <span class="banner-separator">—</span>
+      <a href="mailto:{email}" class="banner-link">{email}</a>
+    </span>
+    <span class="banner-content" aria-hidden="true">
+      <span class="banner-text">{bannerText}</span>
+      <span class="banner-separator">—</span>
+      <a href="tel:+33650727843" class="banner-link">{phone}</a>
+      <span class="banner-separator">—</span>
+      <a href="mailto:{email}" class="banner-link">{email}</a>
+    </span>
+  </div>
+</div>
+
+<style>
+  .top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: var(--color-foreground);
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .banner-track {
+    display: flex;
+    width: max-content;
+    animation: banner-scroll 25s linear infinite;
+  }
+
+  .banner-content {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding-right: 2rem;
+    flex-shrink: 0;
+  }
+
+  .banner-text {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+
+  .banner-separator {
+    color: var(--color-background);
+    opacity: 0.8;
+  }
+
+  .banner-link {
+    color: var(--color-background);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .banner-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+  }
+
+  @keyframes banner-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-25%);
+    }
+  }
+</style>

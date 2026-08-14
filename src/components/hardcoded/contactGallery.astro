@@ -1,0 +1,34 @@
+---
+import type { ContentImage, ContentAnimation } from "./types"
+
+interface Props {
+  content: {
+    images: ContentImage[]
+    animations?: ContentAnimation[]
+  }
+}
+
+const { content } = Astro.props
+---
+
+<section class="py-16 md:py-24 bg-background">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        content.images.map((img, i) => (
+          <div
+            key={i}
+            class="overflow-hidden rounded-2xl shadow-sm opacity-0"
+            data-animate="fadeInUp"
+            data-delay={i * 0.15}>
+            <img
+              src={img.src}
+              alt={img.alt}
+              class="w-full h-[350px] object-cover hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

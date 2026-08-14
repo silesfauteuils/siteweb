@@ -12,3 +12,7 @@
   --font-heading: "Instrument Serif", sans-serif;
   --font-body: "Onest", sans-serif;
 }
+
+.logo-white {
+  filter: brightness(0) invert(1);
+}

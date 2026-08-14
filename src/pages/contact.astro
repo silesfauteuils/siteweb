@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Intro from "../components/hardcoded/intro.astro"
+import ContactForm from "../components/hardcoded/contactForm.astro"
+import ContactGallery from "../components/hardcoded/contactGallery.astro"
+import Footer from "../components/Footer.astro"
+
+const seo = {
+  title: "Restauration de fauteuils & canapés : devis gratuit sur photos",
+  description:
+    "Contactez Si les fauteuils parlaient, atelier de tapisserie à Roquettes (31) | Devis gratuit sur photos | Restauration complète, couture et petites réparations",
+  robots: "all"
+}
+---
+
+<Layout seo={seo}>
+  <Intro
+    content={{
+      heading:
+        "Demander un devis : estimation gratuite sur photo de votre restauration d’assises",
+      subtitle:
+        "Votre projet de restauration de sièges mérite une attention sur mesure."
+    }}
+  />
+
+  <ContactForm
+    content={{
+      description: `Pour établir une estimation juste, 
+        1- <strong>Ajoutez quelques photos</strong> à votre message (vue d’ensemble, vue du dessous de l’assise et du dos) : elles aideront à mieux lire la pièce et à affiner la première proposition. Sans photo, je ne peux pas estimer le prix de votre rénovation.
+        2- <strong>Précisez-moi simplement</strong> :
+          - L'histoire et l'usage du siège : est-ce un meuble de famille ? Envisagez-vous un usage quotidien ou décoratif ?
+          - Le confort souhaité : préférez-vous une assise plutôt ferme ou moelleuse ?
+          - Vos envies esthétiques : teintes, motifs, finitions... pas d'inquiétude si vous n'avez pas encore tranché ! L'atelier vous propose une large sélection de tissus d'éditeurs professionnels. Je vous conseille et vous accompagne pour choisir la matière idéale et construire une restauration cohérente, durable et élégante.
+
+        À noter : C’est lors de l’examen du siège que je déterminerai la technique (traditionnelle ou mousse) et l'état réel de la garniture. Par souci d’écologie, je ne remplace jamais ce qui peut encore durer, mais pour garantir la longévité de votre meuble, il est parfois indispensable de refaire les fondations !`
+    }}
+  />
+
+  <ContactGallery
+    content={{
+      images: [
+        {
+          src: "/images/atelier.JPG",
+          alt: "Atelier de tapisserie"
+        },
+        {
+          src: "/images/img1.png",
+          alt: "Travail de restauration"
+        }
+      ]
+    }}
+  />
+
+  <Footer />
+</Layout>
