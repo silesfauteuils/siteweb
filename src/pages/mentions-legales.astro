@@ -1,0 +1,51 @@
+---
+import Head from "../layouts/Head.astro"
+import SkipLink from "../layouts/SkipLink.astro"
+import TopBanner from "../components/TopBanner.astro"
+import Analytics from "@vercel/analytics/astro"
+import Footer from "../components/Footer.astro"
+
+import "../styles/global.css"
+import "lenis/dist/lenis.css"
+
+interface Props {
+  seo?: object
+}
+
+const { seo } = Astro.props
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <Head seo={seo} />
+    <Analytics />
+  </head>
+  <body class="antialiased">
+    <SkipLink />
+    <TopBanner />
+
+    <main id="main-content" class="pt-10 min-h-screen">
+      <div class="p-8">
+        <h1>Mentions Légales</h1>
+        <p>
+          Conformément aux dispositions des articles 6-III et 19 de la Loi n°
+          2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique,
+          dite L.C.E.N., nous portons à la connaissance des utilisateurs et
+          visiteurs du site silesfauteuils.fr les informations suivantes :
+        </p>
+        <p>
+          ÉDITEUR Le site silesfauteuils.fr est la propriété exclusive de BLIN
+          Céline, autoentrepreneur, qui l'édite. 06 50 72 78 43 - 8 rue du
+          moulin 31120 ROQUETTES Immatriculée au Registre du Commerce et des
+          Sociétés de VILLE sous le numéro 903321180 Numéro TVA
+          intracommunautaire : RAS Directeur de la publication : Céline Blin
+          Contactez le responsable de la publication : silesfauteuils@mailo.com
+          Créateur du site : Huitquatre HÉBERGEMENT Le site est hébergé par
+          Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis
+        </p>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

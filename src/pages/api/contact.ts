@@ -16,7 +16,7 @@ export const POST = async ({ request }: { request: Request }) => {
     const email = formData.get('email')?.toString() || ''
     const ville = formData.get('ville')?.toString() || ''
     const message = formData.get('message')?.toString() || ''
-    const pieceJointes = formData.getAll('piece-jointe').filter((f): f is File => f instanceof File)
+    const pieceJointes = formData.getAll('piece-jointe').filter((f): f is File => f instanceof File && !!f.name)
 
     const errors: string[] = []
     if (!nom) errors.push('Nom est requis')

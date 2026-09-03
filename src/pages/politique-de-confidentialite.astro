@@ -1,0 +1,38 @@
+---
+import Head from "../layouts/Head.astro"
+import SkipLink from "../layouts/SkipLink.astro"
+import TopBanner from "../components/TopBanner.astro"
+import Analytics from "@vercel/analytics/astro"
+import Footer from "../components/Footer.astro"
+
+import "../styles/global.css"
+import "lenis/dist/lenis.css"
+
+interface Props {
+  seo?: object
+}
+
+const { seo } = Astro.props
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <Head seo={seo} />
+    <Analytics />
+  </head>
+  <body class="antialiased">
+    <SkipLink />
+    <TopBanner />
+
+    <main id="main-content" class="pt-10">
+      <div class="p-8 min-h-screen">
+        <h1>
+          Parce que je respecte votre vie privée, ce site ne collecte aucun
+          cookie ! ❤️ Bonne visite.
+        </h1>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

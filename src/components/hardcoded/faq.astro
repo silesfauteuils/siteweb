@@ -74,7 +74,7 @@ const { content } = Astro.props
               const otherAnswer = other.querySelector(".faq-answer")
               if (otherAnswer) {
                 gsap.to(otherAnswer, {
-                  maxHeight: 0,
+                  height: 0,
                   opacity: 0,
                   duration: 0.3,
                   ease: "power2.inOut"
@@ -83,16 +83,16 @@ const { content } = Astro.props
             }
           })
 
-          gsap.set(answer, { maxHeight: 0, opacity: 0 })
+          gsap.set(answer, { height: 0, opacity: 0 })
           gsap.to(answer, {
-            maxHeight: "auto",
+            height: "auto",
             opacity: 1,
             duration: 0.4,
             ease: "power2.out"
           })
         } else {
           gsap.to(answer, {
-            maxHeight: 0,
+            height: 0,
             opacity: 0,
             duration: 0.3,
             ease: "power2.inOut"

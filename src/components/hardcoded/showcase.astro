@@ -53,27 +53,33 @@ const { content } = Astro.props
     </div>
 
     <div
-      class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 opacity-0"
+      class="grid grid-cols-1 2 gap-8 mb-12 opacity-0"
       data-animate="fadeInUp">
       <div class="space-y-4">
-        <p class="text-muted text-xs uppercase tracking-widest">Avant</p>
+        <!-- <p class="text-muted text-xs uppercase tracking-widest">Avant</p> -->
         <img
           src={content.beforeAfter.before.src}
           alt={content.beforeAfter.before.alt}
           class="w-full h-[350px] object-cover rounded-xl shadow-sm"
         />
       </div>
-      <div class="space-y-4">
-        <p class="text-muted text-xs uppercase tracking-widest">Après</p>
-        <img
-          src={content.beforeAfter.after.src}
-          alt={content.beforeAfter.after.alt}
-          class="w-full h-[350px] object-cover rounded-xl shadow-sm"
-        />
-      </div>
+      {
+        content.beforeAfter.after && (
+          <div class="space-y-4">
+            <p class="text-muted text-xs uppercase tracking-widest">Après</p>
+            <img
+              src={content.beforeAfter.after.src}
+              alt={content.beforeAfter.after.alt}
+              class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+            />
+          </div>
+        )
+      }
     </div>
 
-    <div class="max-w-3xl mx-auto text-justify opacity-0" data-animate="fadeInUp">
+    <div
+      class="max-w-3xl mx-auto text-justify opacity-0"
+      data-animate="fadeInUp">
       <p
         class="text-foreground text-lg leading-relaxed"
         set:html={content.body}
