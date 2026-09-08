@@ -11,7 +11,7 @@ const email = "silesfauteuils@mailo.com"
       <span class="banner-separator">—</span>
       <a href="tel:+33650727843" class="banner-link">{phone}</a>
       <span class="banner-separator">—</span>
-      <a href="mailto:{email}" class="banner-link">{email}</a>
+      <a href=`mailto:${email}` class="banner-link">{email}</a>
     </span>
     <span class="banner-content" aria-hidden="true">
       <span class="banner-text">{bannerText}</span>
@@ -25,14 +25,14 @@ const email = "silesfauteuils@mailo.com"
       <span class="banner-separator">—</span>
       <a href="tel:+33650727843" class="banner-link">{phone}</a>
       <span class="banner-separator">—</span>
-      <a href="mailto:{email}" class="banner-link">{email}</a>
+      <a href=`mailto:${email}` class="banner-link">{email}</a>
     </span>
     <span class="banner-content" aria-hidden="true">
       <span class="banner-text">{bannerText}</span>
       <span class="banner-separator">—</span>
       <a href="tel:+33650727843" class="banner-link">{phone}</a>
       <span class="banner-separator">—</span>
-      <a href="mailto:{email}" class="banner-link">{email}</a>
+      <a href=`mailto:${email}` class="banner-link">{email}</a>
     </span>
   </div>
 </div>
@@ -43,6 +43,7 @@ const email = "silesfauteuils@mailo.com"
     top: 0;
     left: 0;
     width: 100%;
+    max-width: 100dvw;
     z-index: 50;
     background-color: var(--color-foreground);
     color: white;
