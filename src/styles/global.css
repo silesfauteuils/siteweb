@@ -11,6 +11,10 @@
   --color-accent-secondary: #b3fc6a;
   --font-heading: "Instrument Serif", sans-serif;
   --font-body: "Onest", sans-serif;
+  --radius-media: 0.75rem;
+  --radius-panel: 1rem;
+  --radius-control: 0.5rem;
+  --shadow-media: 0 1rem 2.5rem rgb(49 25 11 / 10%);
 }
 
 .logo-white {
@@ -20,4 +24,22 @@
 html,
 body {
   overflow-x: clip;
+}
+
+main img.object-cover:not(.absolute):not(.rounded-full),
+main video.object-cover:not(.absolute):not(.rounded-full) {
+  border-radius: var(--radius-media);
+  box-shadow: var(--shadow-media);
+}
+
+main .rounded-2xl {
+  border-radius: var(--radius-media);
+}
+
+main .rounded-xl {
+  border-radius: var(--radius-media);
+}
+
+main .rounded-lg {
+  border-radius: var(--radius-control);
 }
