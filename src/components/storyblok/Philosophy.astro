@@ -1,0 +1,52 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+const introHtml = renderRichText(blok.intro)
+const philosophyHtml = renderRichText(blok.philosophy)
+---
+
+<section id="philosophy" class="py-24 bg-background" {...storyblokEditable(blok)}>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="text-accent uppercase tracking-widest text-sm mb-4 opacity-0" data-animate="fadeInUp">
+        {blok.tagline}
+      </p>
+      <h2 class="font-heading text-4xl md:text-5xl text-foreground opacity-0" data-animate="fadeInUp">
+        {blok.title}
+      </h2>
+      <div class="mt-4 text-muted text-lg opacity-0" data-animate="fadeInUp">
+        <Fragment set:html={introHtml} />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div data-animate="fadeInLeft" data-delay="0" class="opacity-0">
+        <div
+          class="text-foreground text-lg text-justify leading-relaxed"
+          set:html={philosophyHtml}
+        />
+      </div>
+      <div class="space-y-8 opacity-0" data-animate="fadeInRight" data-delay="0.2">
+        {blok.portrait?.filename && (
+          <img
+            src={blok.portrait.filename}
+            alt={blok.portrait.alt || ""}
+            class="w-full h-[400px] object-cover rounded-2xl shadow-sm"
+          />
+        )}
+        <div class="text-center">
+          <a
+            href={blok.button_link || "/contact"}
+            class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+            {blok.button_text}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

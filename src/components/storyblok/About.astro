@@ -1,0 +1,50 @@
+---
+import { storyblokEditable } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+---
+
+<section id="about" class="py-16 md:py-24 bg-background" {...storyblokEditable(blok)}>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div data-animate="fadeInLeft" data-delay="0" class="opacity-0">
+        <p class="text-accent uppercase tracking-widest text-sm mb-4">{blok.badge}</p>
+        <h2 class="font-heading text-4xl md:text-5xl text-foreground mb-4">{blok.name}</h2>
+        <p class="text-muted text-lg mb-6">{blok.tagline}</p>
+        <div class="flex flex-wrap gap-3 mb-8">
+          {blok.categories?.map((cat: string) => (
+            <span class="px-4 py-2 border border-foreground/10 text-foreground text-sm">{cat}</span>
+          ))}
+        </div>
+        <div class="grid grid-cols-3 gap-4 mb-8">
+          {blok.specs?.map((spec: any) => (
+            <div class="flex flex-col items-center text-center p-4 bg-background-warm">
+              {spec.icon && <img src={spec.icon} alt={spec.label} class="w-6 h-6 mb-2 invert opacity-60" />}
+              <p class="text-2xl font-heading text-foreground">{spec.value}</p>
+              <p class="text-xs text-muted uppercase tracking-wider">{spec.label}</p>
+            </div>
+          ))}
+        </div>
+        <a
+          href={blok.primary_button_link?.cached_url || "/contact"}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors"
+        >
+          {blok.primary_button_text}
+        </a>
+      </div>
+      <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
+        {blok.image?.filename && (
+          <img
+            src={blok.image.filename}
+            alt={blok.image.alt || ""}
+            class="w-full h-[500px] object-cover"
+          />
+        )}
+      </div>
+    </div>
+  </div>
+</section>

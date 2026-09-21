@@ -1,0 +1,97 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+const infoHtml = renderRichText(blok.info)
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen overflow-hidden bg-background pt-16"
+  {...storyblokEditable(blok)}>
+  <div class="hero-inner relative z-10 flex flex-col justify-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <div class="max-w-2xl">
+        <p
+          class="text-accent uppercase tracking-widest text-sm mb-4 opacity-0"
+          data-animate="fadeInUp"
+          data-delay="0">
+          {blok.badge}
+        </p>
+        <h1
+          class="font-heading text-5xl md:text-7xl text-background leading-none mb-6 opacity-0"
+          data-animate="fadeInUp"
+          data-delay="0.1">
+          {blok.heading}
+        </h1>
+        <div class="max-w-4xl mx-auto mb-4">
+          <h2
+            class="font-heading text-background text-2xl md:text-3xl opacity-0"
+            data-animate="fadeInUp"
+            data-delay="0.15">
+            {blok.subtitle || "Si les fauteuils parlaient, tapissier d'ameublement"}
+          </h2>
+        </div>
+        <div
+          class="text-background-warm text-lg md:text-xl mb-8 max-w-xl opacity-0"
+          data-animate="fadeInUp"
+          data-delay="0.2">
+          <Fragment set:html={infoHtml} />
+        </div>
+        <div
+          class="flex flex-wrap gap-4 mb-8 opacity-0"
+          data-animate="fadeInUp"
+          data-delay="0.3">
+          <a
+            href={blok.primary_button_link?.url || (blok.primary_button_link?.cached_url ? `/${blok.primary_button_link.cached_url}` : "/contact")}
+            class="inline-flex items-center gap-2 px-8 py-4 bg-background text-foreground uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+            {blok.primary_button_text || "Devis gratuit"}
+          </a>
+          <a
+            href={blok.secondary_button_link || "#"}
+            class="inline-flex items-center gap-2 px-8 py-4 border bg-foreground text-background border-foreground uppercase tracking-widest text-sm hover:bg-foreground/80 transition-colors">
+            {blok.secondary_button_text || "Venir à l'atelier"}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {blok.image?.filename && (
+    <img
+      src={blok.image.filename}
+      alt={blok.image.alt || ""}
+      class="absolute inset-0 w-full h-full object-cover z-0"
+      data-parallax
+    />
+  )}
+
+  <div
+    class="absolute inset-0 z-2 bg-gradient-to-r from-black/60 via-black/30 to-transparent">
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const parallaxEl = document.querySelector("[data-parallax]")
+  if (parallaxEl) {
+    gsap.to(parallaxEl, {
+      yPercent: 20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    })
+  }
+</script>

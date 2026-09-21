@@ -1,0 +1,29 @@
+---
+import { storyblokEditable } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+---
+
+<section class="py-16 md:py-24 bg-background" {...storyblokEditable(blok)}>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 gap-6">
+      {
+        blok.image && (
+          <div
+            class="overflow-hidden rounded-2xl shadow-sm opacity-0"
+            data-animate="fadeInUp">
+              <img
+                src={blok.image.filename}
+                alt={blok.image.alt || ""}
+                class="w-full h-[350px] object-cover hover:scale-105 transition-transform duration-700"
+              />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

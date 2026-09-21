@@ -1,0 +1,35 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+const bodyHtml = renderRichText(blok.body)
+---
+
+<section id="amenities" class="py-24 bg-background-warm" {...storyblokEditable(blok)}>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-accent uppercase tracking-widest text-sm mb-4 opacity-0" data-animate="fadeInUp">{blok.badge}</p>
+        <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-6 opacity-0" data-animate="fadeInUp">{blok.heading}</h2>
+        {blok.body && (
+          <div class="text-muted text-lg leading-relaxed opacity-0" data-animate="fadeInUp">
+            <Fragment set:html={bodyHtml} />
+          </div>
+        )}
+      </div>
+      <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
+        {blok.image?.filename && (
+          <img
+            src={blok.image.filename}
+            alt={blok.image.alt || ""}
+            class="w-full h-[500px] object-cover"
+          />
+        )}
+      </div>
+    </div>
+  </div>
+</section>

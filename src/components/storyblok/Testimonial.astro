@@ -1,0 +1,35 @@
+---
+import { storyblokEditable } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+---
+
+<section id="testimonial" class="py-24 bg-background" {...storyblokEditable(blok)}>
+  <div class="max-w-4xl mx-auto px-6 text-center opacity-0" data-animate="fadeInUp">
+    {blok.stars_image?.filename && (
+      <img src={blok.stars_image.filename} alt={blok.stars_image.alt || "5 stars"} class="w-32 h-auto mx-auto mb-8 invert opacity-0" data-animate="scaleIn" />
+    )}
+    <blockquote class="font-heading text-2xl md:text-4xl text-foreground leading-relaxed mb-10">
+      {blok.quote}
+    </blockquote>
+    <div class="flex items-center justify-center gap-4 opacity-0" data-animate="fadeInUp" data-delay="0.2">
+      {blok.author_image?.filename && (
+        <img
+          src={blok.author_image.filename}
+          alt={blok.author_image.alt || ""}
+          class="w-12 h-12 rounded-full object-cover"
+        />
+      )}
+      <div class="text-left">
+        <p class="font-heading text-foreground text-lg">{blok.author_name}</p>
+        {blok.author_company && (
+          <p class="text-muted text-sm">{blok.author_company}</p>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

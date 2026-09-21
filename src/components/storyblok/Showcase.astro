@@ -1,0 +1,126 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+const bodyHtml = renderRichText(blok.body)
+const hasBefore = !!blok.before_image?.filename
+const hasAfter = !!blok.after_image?.filename
+const singleImage =
+  hasBefore && !hasAfter ? "before" : !hasBefore && hasAfter ? "after" : null
+---
+
+<section id="showcase" class="py-24 bg-background" {...storyblokEditable(blok)}>
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      {
+        blok.tagline && (
+          <p class="text-accent uppercase tracking-widest text-xs mb-3">
+            {blok.tagline}
+          </p>
+        )
+      }
+      <h2 class="font-heading text-3xl md:text-5xl text-foreground">
+        {blok.title}
+      </h2>
+    </div>
+
+    {
+      blok.testimonial_quote && (
+        <div class="text-center mb-20 opacity-0" data-animate="fadeInUp">
+          <blockquote class="font-heading text-xl md:text-2xl text-foreground leading-relaxed mb-8">
+            "{blok.testimonial_quote}"
+          </blockquote>
+          {blok.testimonial_author_name && (
+            <div
+              class="flex items-start justify-start gap-4 opacity-0"
+              data-animate="fadeInUp"
+              data-delay="0.2">
+              <div class="text-left">
+                <p class="font-heading text-foreground text-xl">
+                  {blok.testimonial_author_name}
+                </p>
+                {blok.testimonial_author_company && (
+                  <p class="text-muted text-sm">
+                    {blok.testimonial_author_company}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )
+    }
+
+    {
+      singleImage ? (
+        <div class="max-w-5xl mx-auto mb-12 opacity-0" data-animate="fadeInUp">
+          {singleImage === "before" && (
+            <img
+              src={blok.before_image.filename}
+              alt={blok.before_image.alt || ""}
+              class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+            />
+          )}
+          {singleImage === "after" && (
+            <div class="space-y-4">
+              <p class="text-muted text-xs uppercase tracking-widest">Après</p>
+              <img
+                src={blok.after_image.filename}
+                alt={blok.after_image.alt || ""}
+                class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+              />
+            </div>
+          )}
+        </div>
+      ) : (
+        (hasBefore || hasAfter) && (
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 opacity-0"
+            data-animate="fadeInUp">
+            {hasBefore && (
+              <div class="space-y-4">
+                <p class="text-muted text-xs uppercase tracking-widest">
+                  Avant
+                </p>
+                <img
+                  src={blok.before_image.filename}
+                  alt={blok.before_image.alt || ""}
+                  class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+                />
+              </div>
+            )}
+            {hasAfter && (
+              <div class="space-y-4">
+                <p class="text-muted text-xs uppercase tracking-widest">
+                  Après
+                </p>
+                <img
+                  src={blok.after_image.filename}
+                  alt={blok.after_image.alt || ""}
+                  class="w-full h-[350px] object-cover rounded-xl shadow-sm"
+                />
+              </div>
+            )}
+          </div>
+        )
+      )
+    }
+
+    {
+      blok.body && (
+        <div
+          class="max-w-3xl mx-auto text-justify opacity-0"
+          data-animate="fadeInUp">
+          <div
+            class="text-foreground text-lg leading-relaxed"
+            set:html={bodyHtml}
+          />
+        </div>
+      )
+    }
+  </div>
+</section>

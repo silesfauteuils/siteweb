@@ -1,0 +1,56 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+const servicesWithHtml = blok.services?.map((service: any) => ({
+  ...service,
+  textHtml: renderRichText(service.text)
+}))
+---
+
+<section
+  id="stats"
+  class="py-24 bg-background-warm"
+  {...storyblokEditable(blok)}>
+  <div class="max-w-7xl mx-auto px-6 flex justify-center items-center flex-col">
+    <div class="text-center mb-16">
+      <h3
+        class="font-heading text-3xl md:text-4xl text-foreground mb-4 opacity-0"
+        data-animate="fadeInUp">
+        {blok.title || "Quelles pièces me confier ?"}
+      </h3>
+    </div>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto pl-0">
+      {
+        servicesWithHtml?.map((service: any, i: number) => (
+          <li
+            key={i}
+            class="flex items-start gap-3 p-6 bg-white rounded-xl shadow-sm opacity-0"
+            data-animate="fadeInUp"
+            data-delay={i * 0.1}>
+            <svg
+              class="w-5 h-5 text-accent mt-0.5 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <div
+              class="text-foreground text-lg leading-relaxed"
+              set:html={service.textHtml || service.text}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

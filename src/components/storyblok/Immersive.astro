@@ -1,0 +1,51 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+
+interface Props {
+  blok: any
+}
+
+const { blok } = Astro.props
+const bodyHtml = renderRichText(blok.body)
+---
+
+<section class="bg-background py-24" {...storyblokEditable(blok)}>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-3xl mb-16 opacity-0" data-animate="fadeInUp">
+      <h2 class="font-heading text-4xl md:text-5xl text-foreground leading-tight">
+        {blok.heading}
+      </h2>
+      {blok.body && (
+        <p class="font-body text-muted text-lg mt-6 leading-relaxed" set:html={bodyHtml}>
+        </p>
+      )}
+    </div>
+
+    {blok.main_image?.filename && (
+      <div class="mb-12 rounded-xl overflow-hidden opacity-0" data-animate="fadeInUp">
+        <img
+          src={blok.main_image.filename}
+          alt={blok.main_image.alt || ""}
+          class="w-full h-[500px] object-cover"
+        />
+      </div>
+    )}
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {blok.grid_images?.map((image: any, index: number) => (
+        <div
+          class="rounded-xl overflow-hidden aspect-video opacity-0"
+          data-animate="fadeInUp"
+          data-delay={index * 0.1}>
+          {image.filename && (
+            <img
+              src={image.filename}
+              alt={image.alt || ""}
+              class="w-full h-full object-cover"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
