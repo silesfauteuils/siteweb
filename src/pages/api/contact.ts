@@ -2,13 +2,71 @@ import { Resend } from 'resend'
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY)
 
+// Simple in-memory rate limit (per serverless instance).
+// For stronger global limiting behind Vercel, use Vercel KV / Upstash later.
+const rateLimit = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT_MAX = 5 // max submissions
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000 // per 10 min
+const MIN_SUBMIT_DELAY_MS = 3000 // humans take >3s to fill the form
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for')
+  if (forwarded) return forwarded.split(',')[0].trim()
+  return request.headers.get('x-real-ip') ?? 'unknown'
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimit.get(ip)
+  if (!entry || now > entry.resetAt) {
+    rateLimit.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
+    return false
+  }
+  entry.count += 1
+  return entry.count > RATE_LIMIT_MAX
+}
+
+function jsonError(message: string, status: number): Response {
+  return new Response(JSON.stringify({ ok: false, error: message }), {
+    status,
+    headers: { 'Content-Type': 'application/json' }
+  })
+}
+
 export const POST = async ({ request }: { request: Request }) => {
   if (request.method !== 'POST') {
     return new Response(null, { status: 405 })
   }
 
   try {
+    // Rate limit before parsing heavy payloads (files)
+    const clientIp = getClientIp(request)
+    if (isRateLimited(clientIp)) {
+      return jsonError('Trop de tentatives. Veuillez réessayer dans quelques minutes.', 429)
+    }
+
     const formData = await request.formData()
+
+    // 1. Honeypot : les bots remplissent ce champ invisible aux humains.
+    // Répondre "ok" pour ne pas révéler la détection au bot.
+    const honeypot = formData.get('website')?.toString() || ''
+    if (honeypot) {
+      console.warn(`[contact] spam bloqué (honeypot) depuis IP ${clientIp}`)
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
+
+    // 2. Time trap : soumission trop rapide = bot
+    const startedAt = Number(formData.get('form_started_at'))
+    if (!startedAt || Number.isNaN(startedAt)) {
+      return jsonError('Session de formulaire invalide. Veuillez recharger la page.', 400)
+    }
+    if (Date.now() - startedAt < MIN_SUBMIT_DELAY_MS) {
+      console.warn(`[contact] spam bloqué (time-trap) depuis IP ${clientIp}`)
+      return jsonError('Envoi trop rapide. Veuillez réessayer.', 400)
+    }
 
     const nom = formData.get('nom')?.toString() || ''
     const prenom = formData.get('prenom')?.toString() || ''
@@ -27,6 +85,13 @@ export const POST = async ({ request }: { request: Request }) => {
       errors.push('Email n\'est pas valide')
     }
     if (!message) errors.push('Message est requis')
+    if (message.length > 5000) errors.push('Message trop long (max 5000 caractères)')
+    if (nom.length > 100) errors.push('Nom trop long')
+    if (email.length > 254) errors.push('Email trop long')
+
+    // 3. Anti-liens spam : la plupart des spams contiennent plusieurs URLs
+    const urlCount = (message.match(/https?:\/\/|www\./gi) || []).length
+    if (urlCount > 3) errors.push('Les messages contenant trop de liens ne sont pas acceptés')
 
     if (errors.length > 0) {
       return new Response(JSON.stringify({ ok: false, error: errors.join(', ') }), {

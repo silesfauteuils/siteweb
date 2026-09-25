@@ -27,6 +27,19 @@ const descriptionHtml = renderRichText(blok.description)
           class="space-y-6 bg-white p-8 rounded-xl shadow-sm">
           <div id="form-status" class="hidden"></div>
 
+          <!-- Anti-spam honeypot : invisible pour les humains, rempli par les bots -->
+          <div aria-hidden="true" style="position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+            <label for="website">Site web</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+          <input type="hidden" name="form_started_at" id="form-started-at" value="" />
+
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label
@@ -153,6 +166,10 @@ const descriptionHtml = renderRichText(blok.description)
 
 <script type="module">
   const form = document.getElementById("contact-form")
+  const startedAtInput = document.getElementById("form-started-at")
+  if (startedAtInput) {
+    startedAtInput.value = Date.now().toString()
+  }
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault()
