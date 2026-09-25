@@ -1,4 +1,6 @@
 ---
+import SbImage from "./SbImage.astro"
+
 interface FooterLink {
   label: string
   href: string
@@ -17,7 +19,7 @@ const { logoPlaceholder = true } = Astro.props
       <div class="flex flex-col items-center w-full md:items-start">
         {
           logoPlaceholder && (
-            <img
+            <SbImage
               src="/logo_celine_blin.svg"
               alt="Logo Céline Blin"
               class="w-32 h-auto mb-6 logo-white"
@@ -51,9 +53,11 @@ const { logoPlaceholder = true } = Astro.props
           >
         </div>
         <figure class="m-0">
-          <img
+          <SbImage
             src="/images/artisan.png"
             alt="Portrait de l'artisane Céline Blin"
+            widths={[200, 400]}
+            sizes="200px"
             class="h-36 w-auto rounded-xl object-contain shadow-lg"
           />
         </figure>

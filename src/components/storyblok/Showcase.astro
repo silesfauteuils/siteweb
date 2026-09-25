@@ -1,5 +1,6 @@
 ---
 import { storyblokEditable, renderRichText } from "@storyblok/astro"
+import SbImage from "../SbImage.astro"
 
 interface Props {
   blok: any
@@ -59,18 +60,20 @@ const singleImage =
       singleImage ? (
         <div class="max-w-5xl mx-auto mb-12 opacity-0" data-animate="fadeInUp">
           {singleImage === "before" && (
-            <img
-              src={blok.before_image.filename}
-              alt={blok.before_image.alt || ""}
+            <SbImage
+              src={blok.before_image}
+              widths={[480, 800, 1200]}
+              sizes="(max-width: 768px) 100vw, 50vw"
               class="w-full h-[350px] object-cover rounded-xl shadow-sm"
             />
           )}
           {singleImage === "after" && (
             <div class="space-y-4">
               <p class="text-muted text-xs uppercase tracking-widest">Après</p>
-              <img
-                src={blok.after_image.filename}
-                alt={blok.after_image.alt || ""}
+              <SbImage
+                src={blok.after_image}
+                widths={[480, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 class="w-full h-[350px] object-cover rounded-xl shadow-sm"
               />
             </div>
@@ -86,9 +89,10 @@ const singleImage =
                 <p class="text-muted text-xs uppercase tracking-widest">
                   Avant
                 </p>
-                <img
-                  src={blok.before_image.filename}
-                  alt={blok.before_image.alt || ""}
+                <SbImage
+                  src={blok.before_image}
+                  widths={[480, 800, 1200]}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   class="w-full h-[350px] object-cover rounded-xl shadow-sm"
                 />
               </div>
@@ -98,9 +102,10 @@ const singleImage =
                 <p class="text-muted text-xs uppercase tracking-widest">
                   Après
                 </p>
-                <img
-                  src={blok.after_image.filename}
-                  alt={blok.after_image.alt || ""}
+                <SbImage
+                  src={blok.after_image}
+                  widths={[480, 800, 1200]}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   class="w-full h-[350px] object-cover rounded-xl shadow-sm"
                 />
               </div>

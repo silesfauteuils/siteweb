@@ -1,5 +1,6 @@
 ---
 import { storyblokEditable, renderRichText } from "@storyblok/astro"
+import SbImage from "../SbImage.astro"
 
 interface Props {
   blok: any
@@ -25,9 +26,10 @@ const neighborhoodBodyHtml = renderRichText(blok.neighborhood?.body)
           data-delay={(i + 1) * 0.15}>
           <div class="relative h-[400px]">
             {card.image?.filename && (
-              <img
-                src={card.image.filename}
-                alt={card.image.alt || ""}
+              <SbImage
+                src={card.image}
+                widths={[480, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 class="w-full h-full object-cover"
               />
             )}
@@ -64,9 +66,10 @@ const neighborhoodBodyHtml = renderRichText(blok.neighborhood?.body)
         </div>
         <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
           {blok.neighborhood.image?.filename && (
-            <img
-              src={blok.neighborhood.image.filename}
-              alt={blok.neighborhood.image.alt || ""}
+            <SbImage
+              src={blok.neighborhood.image}
+              widths={[480, 800, 1200]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               class="w-full h-[300px] object-cover"
             />
           )}

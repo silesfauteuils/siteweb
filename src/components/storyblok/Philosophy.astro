@@ -1,5 +1,6 @@
 ---
 import { storyblokEditable, renderRichText } from "@storyblok/astro"
+import SbImage from "../SbImage.astro"
 
 interface Props {
   blok: any
@@ -33,9 +34,10 @@ const philosophyHtml = renderRichText(blok.philosophy)
       </div>
       <div class="space-y-8 opacity-0" data-animate="fadeInRight" data-delay="0.2">
         {blok.portrait?.filename && (
-          <img
-            src={blok.portrait.filename}
-            alt={blok.portrait.alt || ""}
+          <SbImage
+            src={blok.portrait}
+            widths={[480, 800, 1200]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
             class="w-full h-[400px] object-cover rounded-2xl shadow-sm"
           />
         )}

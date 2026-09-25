@@ -1,5 +1,6 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
+import SbImage from "../SbImage.astro"
 
 interface Props {
   blok: any
@@ -13,9 +14,10 @@ const { blok } = Astro.props
   class="relative py-24 md:py-32 overflow-hidden"
   {...storyblokEditable(blok)}>
   {blok.background_image?.filename && (
-    <img
-      src={blok.background_image.filename}
-      alt={blok.background_image.alt || ""}
+    <SbImage
+      src={blok.background_image}
+      widths={[640, 1280, 1920]}
+      sizes="100vw"
       class="absolute inset-0 w-full h-full object-cover"
     />
   )}

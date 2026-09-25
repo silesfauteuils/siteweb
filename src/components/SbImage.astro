@@ -1,0 +1,116 @@
+---
+import { Image, type ImageMetadata } from "astro:assets"
+
+interface StoryblokAsset {
+  filename?: string
+  alt?: string
+}
+
+interface Props {
+  /** Storyblok asset object ({ filename, alt }) or plain URL/path string */
+  src: string | StoryblokAsset
+  alt?: string
+  widths?: number[]
+  sizes?: string
+  loading?: "eager" | "lazy"
+  fetchpriority?: "high" | "low" | "auto"
+  decoding?: "async" | "sync" | "auto"
+  format?: "webp" | "avif" | "jpeg" | "png"
+  quality?: number
+  class?: string
+  [key: string]: any
+}
+
+// Local CMS photos bundled in src/assets — matched by filename so that
+// Storyblok "/images/xxx.JPG" paths resolve to optimized imports.
+const localImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*",
+  { eager: true }
+)
+
+function resolveLocalImage(path: string): ImageMetadata | null {
+  const base = decodeURIComponent(path.split("/").pop() ?? "").toLowerCase()
+  if (!base) return null
+  for (const [key, mod] of Object.entries(localImages)) {
+    const name = decodeURIComponent(key.split("/").pop() ?? "").toLowerCase()
+    if (name === base) return mod.default
+  }
+  return null
+}
+
+const {
+  src: rawSrc,
+  alt: altProp,
+  widths = [640, 960, 1280, 1920],
+  sizes = "100vw",
+  loading = "lazy",
+  fetchpriority = "auto",
+  decoding = "async",
+  format = "webp",
+  quality = 80,
+  class: className,
+  ...rest
+} = Astro.props
+
+const asset = typeof rawSrc === "string" ? { filename: rawSrc } : (rawSrc ?? {})
+const src = asset.filename ?? ""
+const alt = altProp ?? asset.alt ?? ""
+const isSvg = src.toLowerCase().split("?")[0].endsWith(".svg")
+const isLocalPath = src.startsWith("/")
+const localMeta = isLocalPath && !isSvg ? resolveLocalImage(src) : null
+---
+
+{
+  !src ? null : isSvg ? (
+    // SVGs can't be raster-optimized — serve as-is
+    <img
+      src={src}
+      alt={alt}
+      loading={loading}
+      decoding={decoding}
+      class={className}
+      {...rest}
+    />
+  ) : localMeta ? (
+    // Bundled photo → full sharp optimization at build time
+    <Image
+      src={localMeta}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      decoding={decoding}
+      format={format}
+      quality={quality}
+      class={className}
+      {...rest}
+    />
+  ) : isLocalPath ? (
+    // Local path not in the bundle (e.g. legacy public/ asset) — plain fallback
+    <img
+      src={src}
+      alt={alt}
+      loading={loading}
+      decoding={decoding}
+      class={className}
+      {...rest}
+    />
+  ) : (
+    // Remote URL (Storyblok CDN…) → optimized via Vercel Image Optimization
+    <Image
+      src={src}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      decoding={decoding}
+      format={format}
+      quality={quality}
+      inferSize
+      class={className}
+      {...rest}
+    />
+  )
+}

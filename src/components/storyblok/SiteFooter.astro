@@ -1,5 +1,6 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
+import SbImage from "../SbImage.astro"
 
 interface Props {
   blok: any
@@ -17,9 +18,10 @@ const description = typeof blok.description === "string" ? blok.description : ""
           {blok.tagline}
         </p>
         {blok.logo?.filename && (
-          <img
-            src={blok.logo.filename}
-            alt={blok.logo.alt || ""}
+          <SbImage
+            src={blok.logo}
+            widths={[160, 320]}
+            sizes="200px"
             class="h-12 w-auto mb-6 opacity-0"
             data-animate="fadeInUp"
             data-delay="0.1"

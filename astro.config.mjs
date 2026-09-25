@@ -1,6 +1,6 @@
 // @ts-check
 // TODO View .env
-import { defineConfig, passthroughImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import { loadEnv } from "vite";
 
 import { storyblok } from '@storyblok/astro';
@@ -82,7 +82,9 @@ export default defineConfig({
   }),
 
   image: {
-    service: passthroughImageService(),
+    // Default image service (sharp) — required for <Image> optimization.
+    // Remote Storyblok/Webflow images are allowed below and optimized
+    // at build time (static) or via Vercel Image Optimization (server).
     remotePatterns: [
       {
         protocol: "https",
