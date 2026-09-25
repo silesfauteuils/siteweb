@@ -41,13 +41,15 @@ const philosophyHtml = renderRichText(blok.philosophy)
             class="w-full h-[400px] object-cover rounded-2xl shadow-sm"
           />
         )}
-        <div class="text-center">
-          <a
-            href={blok.button_link || "/contact"}
-            class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors">
-            {blok.button_text}
-          </a>
-        </div>
+        {blok.button_text && blok.button_link && (
+          <div class="text-center">
+            <a
+              href={blok.button_link}
+              class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+              {blok.button_text}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   </div>

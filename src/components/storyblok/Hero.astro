@@ -8,6 +8,16 @@ interface Props {
 
 const { blok } = Astro.props
 const infoHtml = renderRichText(blok.info)
+
+// Buttons render only when both text and link are provided in the CMS
+const primaryHref =
+  blok.primary_button_link?.url ||
+  (blok.primary_button_link?.cached_url
+    ? `/${blok.primary_button_link.cached_url}`
+    : null)
+const hasPrimaryButton = !!blok.primary_button_text && !!primaryHref
+const secondaryHref = blok.secondary_button_link || null
+const hasSecondaryButton = !!blok.secondary_button_text && !!secondaryHref
 ---
 
 <section
@@ -43,21 +53,27 @@ const infoHtml = renderRichText(blok.info)
           data-delay="0.2">
           <Fragment set:html={infoHtml} />
         </div>
-        <div
-          class="flex flex-wrap gap-4 mb-8 opacity-0"
-          data-animate="fadeInUp"
-          data-delay="0.3">
-          <a
-            href={blok.primary_button_link?.url || (blok.primary_button_link?.cached_url ? `/${blok.primary_button_link.cached_url}` : "/contact")}
-            class="inline-flex items-center gap-2 px-8 py-4 bg-background text-foreground uppercase tracking-widest text-sm hover:bg-accent transition-colors">
-            {blok.primary_button_text || "Devis gratuit"}
-          </a>
-          <a
-            href={blok.secondary_button_link || "#"}
-            class="inline-flex items-center gap-2 px-8 py-4 border bg-foreground text-background border-foreground uppercase tracking-widest text-sm hover:bg-foreground/80 transition-colors">
-            {blok.secondary_button_text || "Venir à l'atelier"}
-          </a>
-        </div>
+        {(hasPrimaryButton || hasSecondaryButton) && (
+          <div
+            class="flex flex-wrap gap-4 mb-8 opacity-0"
+            data-animate="fadeInUp"
+            data-delay="0.3">
+            {hasPrimaryButton && (
+              <a
+                href={primaryHref}
+                class="inline-flex items-center gap-2 px-8 py-4 bg-background text-foreground uppercase tracking-widest text-sm hover:bg-accent transition-colors">
+                {blok.primary_button_text}
+              </a>
+            )}
+            {hasSecondaryButton && (
+              <a
+                href={secondaryHref}
+                class="inline-flex items-center gap-2 px-8 py-4 border bg-foreground text-background border-foreground uppercase tracking-widest text-sm hover:bg-foreground/80 transition-colors">
+                {blok.secondary_button_text}
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </div>
   </div>

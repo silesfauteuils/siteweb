@@ -8,6 +8,11 @@ interface Props {
 
 const { blok } = Astro.props
 const bodyHtml = renderRichText(blok.body)
+
+// Button renders only when both text and link are provided in the CMS
+const buttonHref =
+  blok.button_href?.url ||
+  (blok.button_href?.cached_url ? `/${blok.button_href.cached_url}` : null)
 ---
 
 <section class="bg-background py-24" {...storyblokEditable(blok)}>
@@ -45,10 +50,10 @@ const bodyHtml = renderRichText(blok.body)
           data-animate="fadeInLeft">
           <Fragment set:html={bodyHtml} />
         </div>
-        {blok.button_text && (
+        {blok.button_text && buttonHref && (
           <div class="mt-8 opacity-0" data-animate="fadeInLeft">
             <a
-              href={blok.button_href?.url || (blok.button_href?.cached_url ? `/${blok.button_href.cached_url}` : "#")}
+              href={buttonHref}
               class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors">
               {blok.button_text}
             </a>

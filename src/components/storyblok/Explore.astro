@@ -56,13 +56,15 @@ const neighborhoodBodyHtml = renderRichText(blok.neighborhood?.body)
           </h3>
           <p class="text-muted text-lg mb-6 opacity-0" data-animate="fadeInUp" data-delay="0.1" set:html={neighborhoodBodyHtml}>
           </p>
-          <a
-            href={blok.neighborhood.button_link || "#"}
-            class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors opacity-0"
-            data-animate="fadeInUp"
-            data-delay="0.2">
-            {blok.neighborhood.button_text}
-          </a>
+          {blok.neighborhood.button_text && blok.neighborhood.button_link && (
+            <a
+              href={blok.neighborhood.button_link}
+              class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors opacity-0"
+              data-animate="fadeInUp"
+              data-delay="0.2">
+              {blok.neighborhood.button_text}
+            </a>
+          )}
         </div>
         <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
           {blok.neighborhood.image?.filename && (

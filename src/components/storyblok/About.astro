@@ -7,6 +7,12 @@ interface Props {
 }
 
 const { blok } = Astro.props
+
+// Button renders only when both text and link are provided in the CMS
+const buttonHref = blok.primary_button_link?.url ||
+  (blok.primary_button_link?.cached_url
+    ? `/${blok.primary_button_link.cached_url}`
+    : null)
 ---
 
 <section id="about" class="py-16 md:py-24 bg-background" {...storyblokEditable(blok)}>
@@ -30,12 +36,14 @@ const { blok } = Astro.props
             </div>
           ))}
         </div>
-        <a
-          href={blok.primary_button_link?.cached_url || "/contact"}
-          class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors"
-        >
-          {blok.primary_button_text}
-        </a>
+        {blok.primary_button_text && buttonHref && (
+          <a
+            href={buttonHref}
+            class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors"
+          >
+            {blok.primary_button_text}
+          </a>
+        )}
       </div>
       <div data-animate="fadeInRight" data-delay="0.2" class="opacity-0">
         {blok.image?.filename && (

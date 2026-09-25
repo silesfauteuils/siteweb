@@ -11,6 +11,11 @@ const stepsWithHtml = blok.steps?.map((step: any) => ({
   ...step,
   textHtml: renderRichText(step.text)
 }))
+
+// Button renders only when both text and link are provided in the CMS
+const buttonHref =
+  blok.button_link?.url ||
+  (blok.button_link?.cached_url ? `/${blok.button_link.cached_url}` : null)
 ---
 
 <section id="process" class="py-24 bg-background" {...storyblokEditable(blok)}>
@@ -55,14 +60,16 @@ const stepsWithHtml = blok.steps?.map((step: any) => ({
       />
     </div>
 
-    <div class="text-center">
-      <a
-        href={blok.button_link?.url || (blok.button_link?.cached_url ? `/${blok.button_link.cached_url}` : "/contact")}
-        class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors opacity-0"
-        data-animate="fadeInUp"
-        data-delay="0.3">
-        {blok.button_text}
-      </a>
-    </div>
+    {blok.button_text && buttonHref && (
+      <div class="text-center">
+        <a
+          href={buttonHref}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-white uppercase tracking-widest text-sm hover:bg-accent transition-colors opacity-0"
+          data-animate="fadeInUp"
+          data-delay="0.3">
+          {blok.button_text}
+        </a>
+      </div>
+    )}
   </div>
 </section>
