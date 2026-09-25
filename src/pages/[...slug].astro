@@ -38,17 +38,20 @@ export async function getStaticPaths() {
     per_page: 100
   })
 
-  // Global story holds site-wide config (labels banner) — fetched once,
+  // Global story holds site-wide config (labels banner, menu) — fetched once,
   // passed to every page, never rendered as a page itself
   let labels: any[] = []
+  let menu: any[] = []
   try {
     const { data: globalData } = await sbApi.get("cdn/stories/global", {
       version
     })
     const images = globalData?.story?.content?.images
     labels = Array.isArray(images) ? images : images ? [images] : []
+    const entries = globalData?.story?.content?.menu
+    menu = Array.isArray(entries) ? entries : []
   } catch {
-    // Global story missing — pages still build, banner stays hidden
+    // Global story missing — pages still build, banner and menu stay hidden
   }
 
   // Remove global story (for configuration purposes only)
@@ -63,12 +66,13 @@ export async function getStaticPaths() {
           ? undefined
           : story.full_slug
     },
-    props: { story, labels }
+    props: { story, labels, menu }
   }))
 }
 
 let story
 let labels: any[] = []
+let menu: any[] = []
 
 if (IS_PREVIEW) {
   // SSR mode: fetch on-demand for Storyblok visual editor
@@ -88,13 +92,16 @@ if (IS_PREVIEW) {
     })
     const images = globalData?.story?.content?.images
     labels = Array.isArray(images) ? images : images ? [images] : []
+    const entries = globalData?.story?.content?.menu
+    menu = Array.isArray(entries) ? entries : []
   } catch {
-    // Global story missing — banner stays hidden
+    // Global story missing — banner and menu stay hidden
   }
 } else {
   // SSG mode: story comes from getStaticPaths props
   story = Astro.props.story
   labels = Astro.props.labels ?? []
+  menu = Astro.props.menu ?? []
 }
 
 // Guard: If story is undefined, return 404
@@ -116,7 +123,7 @@ const seo = {
 }
 ---
 
-<Layout seo={seo}>
+<Layout seo={seo} menu={menu}>
   <StoryblokComponent blok={story.content} />
   <Footer labels={labels} />
 </Layout>

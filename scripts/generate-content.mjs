@@ -63,6 +63,10 @@ const content = {
         alt: "Logo Artisan — décret du 2 avril 1998",
       },
     ],
+    menu: [
+      { component: "menu_link", label: "Accueil", href: "/" },
+      { component: "menu_link", label: "Contact", href: "/contact" },
+    ],
   },
   home: {
     component: "page",

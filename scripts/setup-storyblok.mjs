@@ -380,6 +380,16 @@ const components = [
     }
   },
   {
+    name: "menu_link",
+    display_name: "Menu Link",
+    is_nestable: true,
+    is_root: false,
+    schema: {
+      label: { type: "text" },
+      href: { type: "text" },
+    }
+  },
+  {
     name: "about",
     display_name: "About",
     is_nestable: true,
@@ -419,6 +429,10 @@ const components = [
     is_root: true,
     schema: {
       images: { type: "multiasset", filetypes: ["images"] },
+      menu: {
+        type: "bloks",
+        component_whitelist: ["menu_link"]
+      },
     }
   },
 

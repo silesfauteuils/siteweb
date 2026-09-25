@@ -1,0 +1,157 @@
+---
+import SbImage from "../components/SbImage.astro"
+
+interface MenuItem {
+  label?: string
+  href?: string
+}
+
+interface Props {
+  /** Menu entries from the Storyblok `global` story — header renders only when non-empty */
+  menu?: MenuItem[]
+}
+
+const { menu = [] } = Astro.props
+const items = menu.filter((item) => item?.label && item?.href)
+const currentPath = Astro.url.pathname
+---
+
+{items.length > 0 && (
+  <header id="site-nav" class="site-nav fixed top-10 inset-x-0 z-40 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="/" aria-label="Accueil — Si les fauteuils parlaient" class="shrink-0">
+          <SbImage
+            src="/logo_celine_blin.svg"
+            alt="Logo Céline Blin"
+            class="site-logo h-10 md:h-12 w-auto"
+          />
+        </a>
+
+        {/* Desktop links */}
+        <nav class="hidden md:flex items-center gap-8" aria-label="Navigation principale">
+          {items.map((item) => {
+            const isExternal = item.href!.startsWith("http")
+            const isActive = !isExternal && (currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href!)))
+            return (
+              <a
+                href={item.href}
+                aria-current={isActive ? "page" : undefined}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                class={`uppercase tracking-widest text-sm transition-colors hover:text-accent ${isActive ? "text-accent" : ""}`}>
+                {item.label}
+              </a>
+            )
+          })}
+        </nav>
+
+        {/* Mobile burger */}
+        <button
+          id="nav-toggle"
+          class="md:hidden inline-flex flex-col justify-center items-center gap-[6px] w-10 h-10 burger"
+          aria-expanded="false"
+          aria-controls="nav-panel"
+          aria-label="Ouvrir le menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    {/* Mobile panel */}
+    <nav id="nav-panel" class="nav-panel hidden md:hidden" aria-label="Navigation mobile">
+      <ul class="px-6 py-4 space-y-1">
+        {items.map((item) => {
+          const isExternal = item.href!.startsWith("http")
+          const isActive = !isExternal && (currentPath === item.href || (item.href !== "/" && currentPath.startsWith(item.href!)))
+          return (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive ? "page" : undefined}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                class={`block py-3 uppercase tracking-widest text-sm transition-colors hover:text-accent border-b border-foreground/10 last:border-0 ${isActive ? "text-accent" : ""}`}>
+                {item.label}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
+  </header>
+)}
+
+<style>
+  .site-nav {
+    color: #fff;
+  }
+  .site-nav .site-logo {
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+  }
+  .site-nav.scrolled {
+    color: var(--color-foreground);
+    background: rgb(255 255 255 / 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgb(49 25 11 / 0.08);
+  }
+  .site-nav.scrolled .site-logo {
+    filter: none;
+  }
+  .site-nav .nav-panel {
+    background: #fff;
+    color: var(--color-foreground);
+    border-bottom: 1px solid rgb(49 25 11 / 0.08);
+  }
+  .site-nav .burger span {
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.3s ease;
+  }
+  .site-nav .burger.open span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .site-nav .burger.open span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+</style>
+
+<script>
+  const header = document.getElementById("site-nav")
+  const toggle = document.getElementById("nav-toggle")
+  const panel = document.getElementById("nav-panel")
+
+  if (header) {
+    const onScroll = () => {
+      header.classList.toggle("scrolled", window.scrollY > 24)
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+  }
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.classList.toggle("open", open)
+      toggle.setAttribute("aria-expanded", String(open))
+      toggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu")
+      panel.classList.toggle("hidden", !open)
+    }
+    toggle.addEventListener("click", () => {
+      setOpen(panel.classList.contains("hidden"))
+    })
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false))
+    })
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.classList.contains("hidden")) {
+        setOpen(false)
+        ;(toggle as HTMLElement).focus()
+      }
+    })
+  }
+</script>

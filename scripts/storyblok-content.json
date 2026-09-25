@@ -6,6 +6,18 @@
         "filename": "https://a.storyblok.com/f/295373470112198/305x240/0c51e973d0/artisan.png",
         "alt": "Logo Artisan — décret du 2 avril 1998"
       }
+    ],
+    "menu": [
+      {
+        "component": "menu_link",
+        "label": "Accueil",
+        "href": "/"
+      },
+      {
+        "component": "menu_link",
+        "label": "Contact",
+        "href": "/contact"
+      }
     ]
   },
   "home": {
