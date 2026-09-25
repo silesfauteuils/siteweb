@@ -15,12 +15,18 @@ import tailwindcss from "@tailwindcss/vite";
 
 const env = loadEnv('', process.cwd(), '');
 
+// Env vars are strings — "false" is truthy, so compare explicitly.
+// Vercel dashboard vars come via process.env, local dev via .env file.
+const IS_PREVIEW = (process.env.IS_PREVIEW ?? env.IS_PREVIEW ?? "true") === "true";
+
 // https://astro.build/config
 export default defineConfig({
   //TODO Change url
   site: 'https://www.exemple.fr',
 
-  output: "server",
+  // Preview (Storyblok visual editor + draft content) needs SSR.
+  // Production (published content) is fully static, except /api/* routes.
+  output: IS_PREVIEW ? "server" : "static",
 
   integrations: [storyblok({
       accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,

@@ -1,5 +1,8 @@
 import { Resend } from 'resend'
 
+// Keep this endpoint serverless even when the site builds as static
+export const prerender = false
+
 const resend = new Resend(import.meta.env.RESEND_API_KEY)
 
 // Simple in-memory rate limit (per serverless instance).

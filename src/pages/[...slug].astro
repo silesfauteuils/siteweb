@@ -7,12 +7,31 @@ import Footer from "../components/Footer.astro"
 const storyblokApi = useStoryblokApi()
 const { slug } = Astro.params
 
+// NOTE: env vars are strings — "false" is truthy, so compare explicitly.
+// process.env (Vercel dashboard) takes precedence over .env file (import.meta.env).
+function isPreviewMode(): boolean {
+  const raw =
+    typeof process !== "undefined" && process.env.IS_PREVIEW !== undefined
+      ? process.env.IS_PREVIEW
+      : import.meta.env.IS_PREVIEW
+  return raw === "true"
+}
+
+const IS_PREVIEW = isPreviewMode()
+
 // For SSG: Generate static paths for all stories
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi()
 
-  // Use 'draft' version in preview mode, 'published' otherwise
-  const version = import.meta.env.IS_PREVIEW ? "draft" : "published"
+  // NOTE: getStaticPaths runs isolated — do not call frontmatter helpers here.
+  // Env vars are strings ("false" is truthy), and process.env (Vercel)
+  // takes precedence over .env file (import.meta.env).
+  const rawVersion =
+    typeof process !== "undefined" && process.env.IS_PREVIEW !== undefined
+      ? process.env.IS_PREVIEW
+      : import.meta.env.IS_PREVIEW
+  // Production build runs with IS_PREVIEW=false → fetch published stories only
+  const version = rawVersion === "true" ? "draft" : "published"
 
   const { data } = await sbApi.get("cdn/stories", {
     version,
@@ -37,7 +56,7 @@ export async function getStaticPaths() {
 
 let story
 
-if (import.meta.env.IS_PREVIEW) {
+if (IS_PREVIEW) {
   // SSR mode: fetch on-demand for Storyblok visual editor
   const storySlug = slug || "home"
   try {
