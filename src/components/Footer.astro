@@ -1,72 +1,90 @@
 ---
 import SbImage from "./SbImage.astro"
 
-interface FooterLink {
-  label: string
-  href: string
-}
-
 interface Props {
   logoPlaceholder?: boolean
+  /** Label images from the Storyblok `global` story (labels banner) */
+  labels?: any[]
 }
 
-const { logoPlaceholder = true } = Astro.props
+const { logoPlaceholder = true, labels = [] } = Astro.props
 ---
 
-<footer class="bg-foreground text-white mt-16">
-  <div class="max-w-7xl mx-auto px-6 py-12">
-    <div class="flex flex-col md:flex-row justify-between items-start gap-12">
-      <div class="flex flex-col items-center w-full md:items-start">
-        {
-          logoPlaceholder && (
-            <SbImage
-              src="/logo_celine_blin.svg"
-              alt="Logo Céline Blin"
-              class="w-32 h-auto mb-6 logo-white"
-            />
-          )
-        }
-        <nav class="flex flex-col gap-3">
-          <a
-            href="/"
-            class="text-white/80 hover:text-white transition-colors text-sm"
-            >Accueil</a
-          >
-          <a
-            href="/contact"
-            class="text-white/80 hover:text-white transition-colors text-sm"
-            >Contact</a
-          >
-        </nav>
-      </div>
-      <div class="flex w-full flex-col gap-8 md:w-auto md:flex-row md:items-end md:gap-12">
-        <div class="flex flex-col gap-3">
-          <a
-            href="/mentions-legales"
-            class="text-white/80 hover:text-white transition-colors text-sm"
-            >Mentions légales</a
-          >
-          <a
-            href="/politique-de-confidentialite"
-            class="text-white/80 hover:text-white transition-colors text-sm"
-            >Politique de confidentialité</a
-          >
-        </div>
-        <figure class="m-0">
-          <SbImage
-            src="/images/artisan.png"
-            alt="Portrait de l'artisane Céline Blin"
-            widths={[256]}
-            sizes="200px"
-            class="h-36 w-auto rounded-xl object-contain shadow-lg"
-          />
-        </figure>
-      </div>
+{labels.length > 0 && (
+  <div class="bg-background-warm border-t border-foreground/10">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-wrap items-center justify-center gap-8 md:gap-12">
+      {labels.map((label: any, i: number) => (
+        <SbImage
+          key={i}
+          src={label}
+          widths={[96, 256]}
+          sizes="160px"
+          class="h-24 md:h-28 w-auto object-contain"
+        />
+      ))}
     </div>
   </div>
+)}
+
+<footer class={labels.length > 0 ? "bg-foreground text-white overflow-hidden" : "bg-foreground text-white overflow-hidden mt-16"}>
+  <div class="max-w-7xl mx-auto px-6 pt-16 md:pt-20 pb-10">
+    {/* ── Columns ── */}
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="col-span-2 lg:col-span-1 opacity-0" data-animate="fadeInUp">
+        {logoPlaceholder && (
+          <SbImage
+            src="/logo_celine_blin.svg"
+            alt="Logo Céline Blin"
+            class="w-28 h-auto mb-5 logo-white"
+          />
+        )}
+        <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+          Atelier de tapisserie d'ameublement.
+          Chaque pièce restaurée à la main, avec soin.
+        </p>
+      </div>
+
+      <nav class="opacity-0" data-animate="fadeInUp" data-delay="0.1" aria-label="Navigation principale">
+        <p class="text-white uppercase tracking-widest text-xs mb-5 text-white/50">Navigation</p>
+        <ul class="space-y-3 list-none">
+          <li>
+            <a href="/" class="text-white/80 hover:text-accent transition-colors text-sm">Accueil</a>
+          </li>
+          <li>
+            <a href="/contact" class="text-white/80 hover:text-accent transition-colors text-sm">Contact &amp; devis</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="opacity-0" data-animate="fadeInUp" data-delay="0.15">
+        <p class="text-white uppercase tracking-widest text-xs mb-5 text-white/50">Atelier</p>
+        <ul class="space-y-3 text-sm list-none">
+          <li>
+            <a href="tel:+33650727843" class="text-white/80 hover:text-accent transition-colors">06 50 72 78 43</a>
+          </li>
+          <li>
+            <a href="mailto:silesfauteuils@mailo.com" class="text-white/80 hover:text-accent transition-colors break-all">silesfauteuils@mailo.com</a>
+          </li>
+          <li class="text-white/60">Roquettes (31), Haute-Garonne</li>
+        </ul>
+      </div>
+
+      <nav class="opacity-0" data-animate="fadeInUp" data-delay="0.2" aria-label="Informations légales">
+        <p class="text-white uppercase tracking-widest text-xs mb-5 text-white/50">Informations</p>
+        <ul class="space-y-3 list-none">
+          <li>
+            <a href="/mentions-legales" class="text-white/80 hover:text-accent transition-colors text-sm">Mentions légales</a>
+          </li>
+          <li>
+            <a href="/politique-de-confidentialite" class="text-white/80 hover:text-accent transition-colors text-sm">Politique de confidentialité</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
   <div class="border-t border-white/10">
-    <div
-      class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-2">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-2">
       <p class="text-white/50 text-sm">
         © {new Date().getFullYear()} Si les fauteuils parlaient. Tous droits réservés.
       </p>
@@ -75,7 +93,7 @@ const { logoPlaceholder = true } = Astro.props
           href="https://www.huitquatre.fr"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-white/70 hover:text-white transition-colors">huitquatre</a
+          class="text-white/70 hover:text-accent transition-colors">huitquatre</a
         >
       </p>
     </div>

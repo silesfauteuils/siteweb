@@ -60,3 +60,13 @@ main ol {
   padding-left: 1.5em;
   margin: 1em 0;
 }
+
+/* Footer lists are navigational — never bulleted.
+   Unlayered on purpose: must beat the `main ul` rule above
+   (unlayered author CSS wins over Tailwind's layered utilities,
+   so `list-none` alone is not enough inside <main>). */
+footer ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}

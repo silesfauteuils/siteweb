@@ -38,6 +38,19 @@ export async function getStaticPaths() {
     per_page: 100
   })
 
+  // Global story holds site-wide config (labels banner) — fetched once,
+  // passed to every page, never rendered as a page itself
+  let labels: any[] = []
+  try {
+    const { data: globalData } = await sbApi.get("cdn/stories/global", {
+      version
+    })
+    const images = globalData?.story?.content?.images
+    labels = Array.isArray(images) ? images : images ? [images] : []
+  } catch {
+    // Global story missing — pages still build, banner stays hidden
+  }
+
   // Remove global story (for configuration purposes only)
   const filteredStories = data.stories.filter(
     (story) => story.full_slug !== "global"
@@ -50,11 +63,12 @@ export async function getStaticPaths() {
           ? undefined
           : story.full_slug
     },
-    props: { story }
+    props: { story, labels }
   }))
 }
 
 let story
+let labels: any[] = []
 
 if (IS_PREVIEW) {
   // SSR mode: fetch on-demand for Storyblok visual editor
@@ -68,9 +82,19 @@ if (IS_PREVIEW) {
   } catch (error) {
     console.error("[DEBUG] Storyblok API error:", error.message)
   }
+  try {
+    const { data: globalData } = await storyblokApi.get("cdn/stories/global", {
+      version: "draft"
+    })
+    const images = globalData?.story?.content?.images
+    labels = Array.isArray(images) ? images : images ? [images] : []
+  } catch {
+    // Global story missing — banner stays hidden
+  }
 } else {
   // SSG mode: story comes from getStaticPaths props
   story = Astro.props.story
+  labels = Astro.props.labels ?? []
 }
 
 // Guard: If story is undefined, return 404
@@ -94,5 +118,5 @@ const seo = {
 
 <Layout seo={seo}>
   <StoryblokComponent blok={story.content} />
-  <Footer />
+  <Footer labels={labels} />
 </Layout>

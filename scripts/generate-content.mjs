@@ -52,6 +52,18 @@ function route(url) {
 // ── Content ──────────────────────────────────────────────────────────────────
 
 const content = {
+  // Site-wide configuration (never rendered as a page).
+  // The `images` array feeds the labels banner above the footer —
+  // editors can add/remove label logos directly in Storyblok.
+  global: {
+    component: "global",
+    images: [
+      {
+        filename: "https://a.storyblok.com/f/295373470112198/305x240/0c51e973d0/artisan.png",
+        alt: "Logo Artisan — décret du 2 avril 1998",
+      },
+    ],
+  },
   home: {
     component: "page",
     title: "Tapissier d'ameublement Roquettes (Toulouse, 31)",

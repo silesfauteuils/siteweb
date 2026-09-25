@@ -410,8 +410,19 @@ const components = [
     }
   },
 
-  // ── Page Component (root) ──
+  // ── Site-wide config (global story, never rendered as a page) ──
+  // Holds all kinds of site-wide content: labels banner, menus, footer, etc.
   {
+    name: "global",
+    display_name: "Global",
+    is_nestable: false,
+    is_root: true,
+    schema: {
+      images: { type: "multiasset", filetypes: ["images"] },
+    }
+  },
+
+  // ── Page Component (root) ──  {
     name: "page",
     display_name: "Page",
     is_nestable: false,
@@ -501,6 +512,7 @@ async function createContentEntries() {
   console.log("\n📄 Creating content entries...")
 
   const storyNames = {
+    "global": "Global",
     "home": "Accueil",
     "contact": "Contact",
     "mentions-legales": "Mentions Légales",
