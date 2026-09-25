@@ -26,7 +26,7 @@ const bodyHtml = renderRichText(blok.body)
       <div class="mb-12 rounded-xl overflow-hidden opacity-0" data-animate="fadeInUp">
         <SbImage
           src={blok.main_image}
-          widths={[640, 1280, 1920]}
+          widths={[720, 1080, 1560, 1920]}
           sizes="100vw"
           class="w-full h-[500px] object-cover"
         />
@@ -42,7 +42,7 @@ const bodyHtml = renderRichText(blok.body)
           {image.filename && (
             <SbImage
               src={image}
-              widths={[400, 800]}
+              widths={[300, 720, 1080]}
               sizes="(max-width: 768px) 100vw, 33vw"
               class="w-full h-full object-cover"
             />

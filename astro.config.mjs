@@ -65,7 +65,9 @@ export default defineConfig({
     imageService: true,
     imagesConfig: {
       minimumCacheTTL: 86400,
-      sizes: [300, 720, 1080, 1560, 1920, 2560],
+      // NOTE: Astro <Image> `widths` must match these sizes exactly —
+      // the Vercel adapter drops any other width (single-entry srcset).
+      sizes: [48, 96, 256, 300, 720, 1080, 1560, 1920, 2560],
       remotePatterns: [
         {
           protocol: "https",

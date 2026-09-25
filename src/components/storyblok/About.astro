@@ -30,7 +30,7 @@ const buttonHref = blok.primary_button_link?.url ||
         <div class="grid grid-cols-3 gap-4 mb-8">
           {blok.specs?.map((spec: any) => (
             <div class="flex flex-col items-center text-center p-4 bg-background-warm">
-              {spec.icon && <SbImage src={spec.icon} alt={spec.label} widths={[24, 48]} sizes="24px" class="w-6 h-6 mb-2 invert opacity-60" />}
+              {spec.icon && <SbImage src={spec.icon} alt={spec.label} widths={[48, 96]} sizes="48px" class="w-6 h-6 mb-2 invert opacity-60" />}
               <p class="text-2xl font-heading text-foreground">{spec.value}</p>
               <p class="text-xs text-muted uppercase tracking-wider">{spec.label}</p>
             </div>
@@ -49,7 +49,7 @@ const buttonHref = blok.primary_button_link?.url ||
         {blok.image?.filename && (
           <SbImage
             src={blok.image}
-            widths={[480, 800, 1200]}
+            widths={[720, 1080, 1560]}
             sizes="(max-width: 1024px) 100vw, 50vw"
             class="w-full h-[500px] object-cover"
           />

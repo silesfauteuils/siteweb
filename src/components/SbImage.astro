@@ -10,6 +10,11 @@ interface Props {
   /** Storyblok asset object ({ filename, alt }) or plain URL/path string */
   src: string | StoryblokAsset
   alt?: string
+  /**
+   * Responsive widths. MUST match `imagesConfig.sizes` in astro.config.mjs
+   * exactly — the Vercel adapter silently drops any other value,
+   * collapsing the srcset to a single entry.
+   */
   widths?: number[]
   sizes?: string
   loading?: "eager" | "lazy"
@@ -41,7 +46,7 @@ function resolveLocalImage(path: string): ImageMetadata | null {
 const {
   src: rawSrc,
   alt: altProp,
-  widths = [640, 960, 1280, 1920],
+  widths = [720, 1080, 1560, 1920],
   sizes = "100vw",
   loading = "lazy",
   fetchpriority = "auto",
